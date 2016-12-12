@@ -1,0 +1,26 @@
+body {
+  &:before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0;
+    transition: opacity .4s ease;
+    pointer-events: none;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, .3);
+    background-color: rgba(33,33,33,.45);
+    -webkit-backdrop-filter: blur(5px);
+    will-change: transform;
+  }
+}
+
+body.mn-select-visible {
+  overflow: hidden;
+
+  &:before {
+    opacity: 1;
+    pointer-events: all;
+  }
+}
