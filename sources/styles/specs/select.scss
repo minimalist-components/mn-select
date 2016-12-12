@@ -1,0 +1,9 @@
+mn-select {
+  position: relative;
+  display: block;
+  background-color: white;
+
+  &.visible {
+    z-index: 15;
+  }
+}

@@ -1,0 +1,9 @@
+mn-select {
+  option {
+    display: none;
+  }
+
+  option[selected] {
+    display: block;
+  }
+}
