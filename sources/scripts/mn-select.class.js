@@ -42,6 +42,7 @@ class MnSelect extends HTMLElement {
       .forEach(option => option.addEventListener('click', event => {
         const value = event.target.value
         this.selectOption(value)
+        this.setValue(event.target.textContent)
         this.close()
       }))
   }
@@ -57,6 +58,10 @@ class MnSelect extends HTMLElement {
         this.close()
       }
     })
+  }
+
+  setValue(text) {
+    this.childNodes[0].textContent = text
   }
 
   selectOption(value) {
