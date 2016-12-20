@@ -1,9 +1,12 @@
 mn-select {
   option {
-    display: none;
-  }
+    padding: 0 1em;
+    line-height: 3rem;
+    transition: background-color .2s ease;
+    cursor: pointer;
 
-  option[selected] {
-    display: block;
+    &:hover, &:focus {
+      background-color: $oc-gray-2;
+    }
   }
 }

@@ -1,9 +1,23 @@
 mn-select {
-  position: relative;
-  display: block;
+  display: inline-block;
   background-color: white;
+  margin: 1.5em .1em 1em;
+  transform: translateZ(0);
 
-  &.visible {
-    z-index: 15;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+  line-height: 2em;
+  padding: 0 .1em;
+  margin-bottom: .5em;
+  -webkit-appearance: none;
+  text-overflow: ellipsis;
+
+  @media (min-width: 768px) {
+    position: relative;
+    &.visible {z-index: 15}
   }
+
+  // @media (max-width: 767px) {
+  //   &.visible {display: inline}
+  // }
+
 }

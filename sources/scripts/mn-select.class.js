@@ -3,7 +3,28 @@ class MnSelect extends HTMLElement {
     self = super(self)
     this.setOpenEvents()
     this.setCloseEvents()
+    this.setMenu()
+    this.setSelected()
     return self
+  }
+
+  setSelected() {
+    const selected = document.createElement('div')
+    const selectedOption = this.querySelector('option[selected]') || this.querySelector('option')
+    selected.textContent = selectedOption.textContent
+    this.insertBefore(selected, this.firstChild)
+  }
+
+  setMenu() {
+    const menu = document.createElement('menu')
+
+    menu.classList.add('mn-card')
+
+    Array
+      .from(this.children)
+      .forEach(child => menu.appendChild(child))
+
+    this.insertBefore(menu, this.firstChild)
   }
 
   setOpenEvents() {
