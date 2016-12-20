@@ -63,7 +63,10 @@ class MnSelect extends HTMLElement {
     console.log(value)
   }
 
-  open() {
+  open(event) {
+    if (event && event.target.tagName === 'OPTION') {
+      return false
+    }
     this.classList.add('visible')
     document.body.classList.add('mn-select-visible')
   }
@@ -79,8 +82,8 @@ class MnSelect extends HTMLElement {
         select.classList.remove('visible')
       }
     } else if (select) {
-      // dont work
       document.body.classList.remove('mn-select-visible')
+      document.body.classList.add('wow')
       select.classList.remove('visible')
     }
   }
