@@ -5,6 +5,7 @@ class MnSelect extends HTMLElement {
     this.setCloseEvents()
     this.setMenu()
     this.setSelected()
+    this.setOptionEvents()
     return self
   }
 
@@ -32,19 +33,34 @@ class MnSelect extends HTMLElement {
     this.addEventListener('click', open)
   }
 
+  setOptionEvents() {
+    // const selectOption = this.selectOption
+    const options = this.querySelectorAll('option')
+
+    Array
+      .from(options)
+      .forEach(option => option.addEventListener('click', event => {
+        const value = event.target.value
+        this.selectOption(value)
+        this.close()
+      }))
+  }
+
   setCloseEvents() {
-    const close = this.close
-    document.body.addEventListener('click', close)
+    // const close = this.close
+    document.body.addEventListener('click', this.close)
     document.addEventListener('keyup', () => {
       const esc = event.keyCode === 27
       let isOpened = document.body.classList.contains('mn-select-visible')
 
       if (esc && isOpened) {
-        const select = document.querySelector('mn-select.visible')
-        document.body.classList.remove('mn-select-visible')
-        select.classList.remove('visible')
+        this.close()
       }
     })
+  }
+
+  selectOption(value) {
+    console.log(value)
   }
 
   open() {
@@ -53,11 +69,17 @@ class MnSelect extends HTMLElement {
   }
 
   close(event) {
-    event.stopPropagation()
-    const clickOutside = event.target.tagName === 'BODY'
     const select = document.querySelector('mn-select.visible')
+    if (event && select) {
+      event.stopPropagation()
+      const clickOutside = event.target.tagName === 'BODY'
 
-    if (clickOutside && select) {
+      if (clickOutside && select) {
+        document.body.classList.remove('mn-select-visible')
+        select.classList.remove('visible')
+      }
+    } else if (select) {
+      // dont work
       document.body.classList.remove('mn-select-visible')
       select.classList.remove('visible')
     }
