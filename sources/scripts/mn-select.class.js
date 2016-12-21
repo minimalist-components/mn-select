@@ -79,7 +79,11 @@ class MnSelect extends HTMLElement {
 
   setCloseEvents() {
     this.mobileOptions.querySelector('button').addEventListener('click', () => this.close())
-    document.body.addEventListener('click', this.close)
+    this.mobileOptions.addEventListener('touchend', event => {
+      if (event.target.classList.contains('mn-mobile-options')) {
+        this.close()
+      }
+    })
     document.addEventListener('keyup', () => {
       const esc = event.keyCode === 27
       let isOpened = document.body.classList.contains('mn-select-visible')
