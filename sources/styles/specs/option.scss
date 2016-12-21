@@ -5,6 +5,8 @@ mn-select {
     transition: background-color .2s ease;
     cursor: pointer;
     -webkit-user-select: none;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
     &:hover, &:focus {
       background-color: $oc-gray-2;
