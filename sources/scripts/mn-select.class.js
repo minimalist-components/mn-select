@@ -34,14 +34,13 @@ class MnSelect extends HTMLElement {
   }
 
   setOptionEvents() {
-    // const selectOption = this.selectOption
     const options = this.querySelectorAll('option')
 
     Array
       .from(options)
       .forEach(option => option.addEventListener('click', event => {
-        this.selectOption(event.target)
-        this.setViewValue(event.target.textContent)
+        this.setSelectedOption(event.target)
+        this.setValue(event.target.value)
         this.close()
       }))
   }
@@ -58,20 +57,26 @@ class MnSelect extends HTMLElement {
     })
   }
 
+  setValue(value) {
+    const option = this.querySelector(`option[value="${value}"]`)
+    if (option) {
+      this.setViewValue(option.textContent)
+    }
+  }
+
   setViewValue(text) {
     this.childNodes[0].textContent = text
   }
 
-  selectOption(target) {
+  setSelectedOption(target) {
     // const value = target.value || target.textContent
+    // target.parentNode.setAttribute('value', value)
     const lastSelected = target.parentNode.querySelector('option[selected]')
 
     if (lastSelected) {
       lastSelected.removeAttribute('selected')
     }
     target.setAttribute('selected', 'selected')
-    // console.log(value)
-    // console.log(target.addAttribute)
   }
 
   open(event) {
