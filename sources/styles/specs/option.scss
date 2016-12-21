@@ -11,5 +11,9 @@ mn-select {
     &:hover, &:focus {
       background-color: $oc-gray-2;
     }
+
+    &[selected] {
+      background-color: $oc-gray-3;
+    }
   }
 }
