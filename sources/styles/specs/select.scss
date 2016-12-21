@@ -10,6 +10,7 @@ mn-select {
   margin-bottom: .5em;
   -webkit-appearance: none;
   text-overflow: ellipsis;
+  -webkit-user-select: none;
 
   @media (min-width: 768px) {
     position: relative;

@@ -18,6 +18,7 @@ class MnSelect extends HTMLElement {
 
   setMenu() {
     const menu = document.createElement('menu')
+    menu.style.transform = 'translate(-14px, -8px)'
 
     menu.classList.add('mn-card')
 
