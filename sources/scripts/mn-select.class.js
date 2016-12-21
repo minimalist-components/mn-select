@@ -89,6 +89,7 @@ class MnSelect extends HTMLElement {
         this.close()
       }
     })
+    document.body.addEventListener('click', this.close)
     document.addEventListener('keyup', () => {
       const esc = event.keyCode === 27
       let isOpened = document.body.classList.contains('mn-select-visible')
