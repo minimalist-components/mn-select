@@ -59,8 +59,16 @@ class MnSelect extends HTMLElement {
 
   setValue(value) {
     const option = this.querySelector(`option[value="${value}"]`)
-    if (option) {
-      this.setViewValue(option.textContent)
+    const viewValue = option
+      ? option.textContent
+      : null
+
+    if (viewValue) {
+      this.setViewValue(viewValue)
+    } else {
+      console.error(`MN-SELECT OPTION_UNDEFINED
+        You're trying set a value (${value}) to mn-select,
+        but there is no option with this value to be displayed`)
     }
   }
 
