@@ -9,6 +9,7 @@ Minimalist select component, agnostic to framworks.
 ### Install
 
 ```sh
+# not available ye, working in progress
 bower install --save mn-select
 ```
 
