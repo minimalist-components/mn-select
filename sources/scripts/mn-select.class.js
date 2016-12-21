@@ -48,7 +48,6 @@ class MnSelect extends HTMLElement {
   }
 
   setCloseEvents() {
-    // const close = this.close
     document.body.addEventListener('click', this.close)
     document.addEventListener('keyup', () => {
       const esc = event.keyCode === 27
@@ -88,7 +87,6 @@ class MnSelect extends HTMLElement {
       }
     } else if (select) {
       document.body.classList.remove('mn-select-visible')
-      document.body.classList.add('wow')
       select.classList.remove('visible')
     }
   }
