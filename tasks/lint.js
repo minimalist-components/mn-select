@@ -6,6 +6,7 @@ import {lintScripts as scripts} from './config.js'
 gulp.task('lint', lintTask)
 
 function lintTask() {
+  console.log(scripts)
   return gulp
     .src(scripts)
     .pipe(eslint())

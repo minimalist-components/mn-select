@@ -160,5 +160,5 @@ class MnSelect extends HTMLElement {
   }
 }
 
-customElements.define('mn-select', MnSelect)
+window.customElements.define('mn-select', MnSelect)
 
