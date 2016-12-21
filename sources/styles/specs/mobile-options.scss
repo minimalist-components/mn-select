@@ -1,0 +1,59 @@
+.mn-mobile-options {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  visibility: hidden;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: .5em;
+
+  menu {
+    position: relative;
+    z-index: 105;
+    -webkit-user-select: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+    max-height: 50vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    border-radius: .2em;
+    background-color: white;
+  }
+
+  .mn-select-option, button {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    -webkit-appearance: none;
+    border: 0;
+    line-height: 3em;
+    font-size: 1.2em;
+    text-transform: capitalize;
+    box-sizing: border-box;
+    padding: 0 1em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  button {
+    margin-top: .5em;
+    border-radius: .2em;
+    background: white;
+  }
+}
+
+.mn-select-visible .mn-mobile-options.visible {
+  @media (max-width: 767px) {
+    visibility: visible;
+    z-index: 101;
+  }
+}
