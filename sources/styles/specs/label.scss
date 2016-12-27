@@ -16,6 +16,7 @@ mn-select {
   }
 
   &.has-value:before {
+    color: $oc-gray-6;
     position: absolute;
     top: 0;
     left: .1em;
