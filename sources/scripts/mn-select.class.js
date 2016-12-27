@@ -12,8 +12,14 @@ class MnSelect extends HTMLElement {
 
   setSelected() {
     const selected = document.createElement('div')
-    const selectedOption = this.querySelector('.mn-select-option[selected]') || this.querySelector('.mn-select-option')
-    selected.textContent = selectedOption.textContent
+    const selectedOption = this.getAttribute('placeholder')
+      ? this.querySelector('.mn-select-option[selected]')
+      : this.querySelector('.mn-select-option[selected]') || this.querySelector('.mn-select-option')
+
+    if (selectedOption) {
+      this.classList.add('has-value')
+      selected.textContent = selectedOption.textContent
+    }
     this.insertBefore(selected, this.firstChild)
   }
 
@@ -108,6 +114,7 @@ class MnSelect extends HTMLElement {
 
     if (viewValue) {
       this.setViewValue(viewValue)
+      this.classList.add('has-value')
     } else {
       console.error(`MN-SELECT OPTION_UNDEFINED
         You're trying set a value (${value}) to mn-select,

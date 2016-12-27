@@ -1,0 +1,25 @@
+mn-select {
+  &:before {
+    content: attr(placeholder);
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+
+    font-size: 1em;
+
+    color: $oc-gray-7;
+    // transition: transform .2s ease, color .2s ease;
+    transform-origin: left center;
+    transform: translateZ(0);
+    pointer-events: none;
+  }
+
+  &.has-value:before {
+    position: absolute;
+    top: 0;
+    left: .1em;
+    transform: translate(0, -1.3em) scale(.8) translateZ(0);
+  }
+}
