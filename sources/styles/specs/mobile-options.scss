@@ -29,6 +29,10 @@
     background-color: white;
   }
 
+  .mn-select-option:not(:first-child) {
+    border-top: 1px solid $oc-gray-1;
+  }
+
   .mn-select-option, button {
     display: block;
     width: 100%;
@@ -36,7 +40,7 @@
     margin: 0;
     -webkit-appearance: none;
     border: 0;
-    line-height: 3em;
+    line-height: 3.5em;
     font-size: 1.2em;
     text-transform: capitalize;
     box-sizing: border-box;
