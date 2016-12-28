@@ -185,7 +185,8 @@ class MnSelect extends HTMLElement {
     this.classList.add('visible')
     this.mobileOptions.classList.add('visible')
     document.body.classList.add('mn-select-visible')
-    this.querySelector('.mn-select-option[selected], .mn-select-option:first-child').focus()
+    const focusedOption = this.querySelector('.mn-select-option[selected]') || this.querySelector('.mn-select-option:first-child')
+    focusedOption.focus()
   }
 
   close(event) {

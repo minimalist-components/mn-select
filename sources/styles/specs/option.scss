@@ -9,14 +9,13 @@ mn-select {
     overflow: hidden;
     white-space: nowrap;
 
-    &[selected] {
-      background-color: $oc-gray-3;
-    }
-
     &:hover, &:focus {
       background-color: $oc-gray-4;
       outline: 0;
     }
 
+    &[selected] {
+      background-color: $oc-gray-1;
+    }
   }
 }
