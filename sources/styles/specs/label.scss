@@ -9,14 +9,13 @@ mn-select {
 
     font-size: 1em;
 
-    color: $oc-gray-7;
+    color: $oc-gray-6;
     transform-origin: left center;
     transform: translateZ(0);
     pointer-events: none;
   }
 
   &.has-value:before {
-    color: $oc-gray-6;
     position: absolute;
     top: 0;
     left: .1em;
