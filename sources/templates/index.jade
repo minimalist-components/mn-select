@@ -11,7 +11,12 @@ html
     }
 body
   h1 mn-select
-  form
+  
+  mn-select#gender(placeholder='Sexo')
+    option(value='male') Masculino
+    option(value='female') Feminino
+
+  //- form
     mn-select#gender(placeholder='Sexo' name='gender' required)
       option(value='male') Masculino
       option(value='female') Feminino
@@ -22,7 +27,7 @@ body
 
   br
 
-  //- mn-select#whatever(placeholder='Whatever')
+  mn-select#whatever(placeholder='Whatever')
     option(value='1' selected) Lorem ipsum
     option(value='2') dolor sit amet lorem lorem dolor sit amet lorem lorem
     option(value='3') lero lero
@@ -36,7 +41,7 @@ body
 
   br
 
-  //- mn-select#options
+  mn-select#options
     option(value='1') Option 1
     option(value='2') Option 2
     option(value='3') Option 3
