@@ -7,6 +7,7 @@ class MnSelect extends HTMLElement {
     this.setSelected()
     this.setOptionEvents()
     this.setOpenEvents()
+    // this.setArrowEvents()
     this.setCloseEvents()
     return self
   }
@@ -14,6 +15,11 @@ class MnSelect extends HTMLElement {
   setTabIndex() {
     const tabindex = this.getAttribute('tabindex') || '0'
     this.setAttribute('tabindex', tabindex)
+    const options = this.querySelectorAll('option')
+
+    Array
+      .from(options)
+      .forEach(option => option.setAttribute('tabindex', '0'))
   }
 
   setSelected() {
@@ -78,6 +84,30 @@ class MnSelect extends HTMLElement {
         this.open()
       }
     })
+  }
+
+  setArrowEvents() {
+    this.addEventListener('keyup', event => {
+      const keyIsArrowUpOrDown = event.key === 'ArrowUp' || event.key === 'ArrowDown'
+
+      if (keyIsArrowUpOrDown) {
+        this.open()
+      }
+    })
+
+    const options = this.querySelectorAll('.mn-select-option')
+
+    Array
+      .from(options)
+      .forEach(option => option.addEventListener('keyup', event => {
+        if (event.key === 'ArrowDown') {
+          console.log(event.target.previousElementSibling)
+          event.target.previousElementSibling.focus()
+        } else if (event.key === 'ArrowDown') {
+          console.log(event.target.nextElementSibling)
+          event.target.nextElementSibling.focus()
+        }
+      }))
   }
 
   setOptionEvents() {
@@ -155,6 +185,7 @@ class MnSelect extends HTMLElement {
     this.classList.add('visible')
     this.mobileOptions.classList.add('visible')
     document.body.classList.add('mn-select-visible')
+    this.querySelector('.mn-select-option[selected], .mn-select-option:first-child').focus()
   }
 
   close(event) {
