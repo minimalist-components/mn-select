@@ -29,10 +29,21 @@ class MnSelect extends HTMLElement {
       : this.querySelector('.mn-select-option[selected]') || this.querySelector('.mn-select-option')
 
     if (selectedOption) {
+      const value = selectedOption.getAttribute('value') || selectedOption.textContent
+      this.value = value
       this.classList.add('has-value')
       selected.textContent = selectedOption.textContent
     }
     this.insertBefore(selected, this.firstChild)
+  }
+
+  set value(value) {
+    this.setValue(value)
+    const target = this.querySelector(`.mn-select-option[value="${value}"]`)
+
+    if (target) {
+      this.setSelectedOption(target)
+    }
   }
 
   setMenu() {
@@ -86,27 +97,27 @@ class MnSelect extends HTMLElement {
     })
   }
 
-  setArrowEvents() {
-    this.addEventListener('keyup', event => {
-      const keyIsArrowUpOrDown = event.key === 'ArrowUp' || event.key === 'ArrowDown'
+  // setArrowEvents() {
+  //   this.addEventListener('keyup', event => {
+  //     const keyIsArrowUpOrDown = event.key === 'ArrowUp' || event.key === 'ArrowDown'
 
-      if (keyIsArrowUpOrDown) {
-        this.open(event)
-      }
-    })
+  //     if (keyIsArrowUpOrDown) {
+  //       this.open(event)
+  //     }
+  //   })
 
-    const options = this.querySelectorAll('.mn-select-option')
+  //   const options = this.querySelectorAll('.mn-select-option')
 
-    Array
-      .from(options)
-      .forEach(option => option.addEventListener('keyup', event => {
-        if (event.key === 'ArrowDown') {
-          event.target.previousElementSibling.focus()
-        } else if (event.key === 'ArrowDown') {
-          event.target.nextElementSibling.focus()
-        }
-      }))
-  }
+  //   Array
+  //     .from(options)
+  //     .forEach(option => option.addEventListener('keyup', event => {
+  //       if (event.key === 'ArrowDown') {
+  //         event.target.previousElementSibling.focus()
+  //       } else if (event.key === 'ArrowDown') {
+  //         event.target.nextElementSibling.focus()
+  //       }
+  //     }))
+  // }
 
   setOptionEvents() {
     const options = this.querySelectorAll('.mn-select-option')
@@ -116,8 +127,9 @@ class MnSelect extends HTMLElement {
       .from(options)
       .concat(mobileOptions)
       .forEach(option => option.addEventListener('click', event => {
+        const value = event.target.getAttribute('value') || event.target.textContent
         this.setSelectedOption(event.target)
-        this.setValue(event.target.getAttribute('value'))
+        this.value = value
         this.close()
       }))
   }
@@ -185,7 +197,8 @@ class MnSelect extends HTMLElement {
     document.body.classList.add('mn-select-visible')
 
     if (event && event.type === 'keyup') {
-      const focusedOption = this.querySelector('.mn-select-option[selected]') || this.querySelector('.mn-select-option:first-child')
+      const focusedOption = this.querySelector('.mn-select-option[selected]')
+        || this.querySelector('.mn-select-option:first-child')
       focusedOption.focus()
     }
   }
