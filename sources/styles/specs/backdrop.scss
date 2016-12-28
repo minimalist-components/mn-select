@@ -9,8 +9,7 @@ body {
     transition: opacity .4s ease;
     pointer-events: none;
     z-index: 10;
-    background-color: rgba(0, 0, 0, .3);
-    background-color: rgba(33,33,33,.45);
+    background-color: $oc-gray-9;
   }
 }
 
@@ -18,7 +17,7 @@ body.mn-select-visible {
   overflow: hidden;
 
   &:before {
-    opacity: 1;
+    opacity: .6;
     pointer-events: all;
   }
 }
