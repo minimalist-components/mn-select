@@ -174,7 +174,7 @@ class MnSelect extends HTMLElement {
   }
 
   setViewValue(text) {
-    this.childNodes[0].textContent = text
+    this.querySelector('div').textContent = text
   }
 
   setSelectedOption(target) {
