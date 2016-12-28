@@ -10,8 +10,20 @@ class MnSelect extends HTMLElement {
     // this.setArrowEvents()
     this.setCloseEvents()
     this.setNameGetter()
+    // this.setRequired()
     return self
   }
+
+  // setRequired() {
+  //   const isRequired = this.getAttribute('required')
+  //   const value = this.value
+  //   console.log(this.validity)
+  //   if (isRequired && !value) {
+  //     this.willValidate = true
+  //     console.log(this.willValidate)
+  //     this.setCustomValidity('is required')
+  //   }
+  // }
 
   setNameGetter() {
     const form = this.closest('form')

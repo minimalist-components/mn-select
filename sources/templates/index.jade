@@ -12,11 +12,13 @@ html
 body
   h1 mn-select
   form
-    mn-select#gender(placeholder='Sexo' name='gender')
+    mn-select#gender(placeholder='Sexo' name='gender' required)
       option(value='male') Masculino
       option(value='female') Feminino
 
     input(name='username')
+
+    button submit
 
   br
 
