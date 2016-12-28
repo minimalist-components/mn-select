@@ -48,7 +48,7 @@ class MnSelect extends HTMLElement {
   }
 
   get value() {
-    return this.getAttribute('value')
+    return this.getAttribute('value') || undefined
   }
 
   setMenu() {
