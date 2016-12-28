@@ -17,8 +17,8 @@ mn-select {
 
     @media (min-width: 768px) {
       visibility: hidden;
-      min-width: 100%;
-      max-width: 15em;
+      min-width: calc(100% + 14px);
+      // max-width: 15em;
       max-height: 16.5em;
       position: absolute;
     }
