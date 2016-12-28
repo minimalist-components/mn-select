@@ -1,6 +1,7 @@
 class MnSelect extends HTMLElement {
   constructor(self) {
     self = super(self)
+    this.setTabIndex()
     this.setMenu()
     this.setMobileOptions()
     this.setSelected()
@@ -8,6 +9,11 @@ class MnSelect extends HTMLElement {
     this.setOpenEvents()
     this.setCloseEvents()
     return self
+  }
+
+  setTabIndex() {
+    const tabindex = this.getAttribute('tabindex') || '0'
+    this.setAttribute('tabindex', tabindex)
   }
 
   setSelected() {
