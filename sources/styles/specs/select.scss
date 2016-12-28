@@ -13,13 +13,14 @@ mn-select {
     text-overflow: ellipsis;
   }
 
-  box-shadow: 0 1px 0 rgba(0,0,0,0.2);
   line-height: 2em;
   padding: 0 1.5em 0 .1em;//0 .1em;
   margin-bottom: .5em;
   -webkit-appearance: none;
   text-overflow: ellipsis;
   -webkit-user-select: none;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+  transition: box-shadow .2s ease;
 
   &:focus {
     box-shadow: 0 2px 0 $oc-gray-7;
