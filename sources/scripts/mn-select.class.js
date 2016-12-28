@@ -73,6 +73,11 @@ class MnSelect extends HTMLElement {
   setOpenEvents() {
     const open = this.open
     this.addEventListener('click', open)
+    this.addEventListener('keyup', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        this.open()
+      }
+    })
   }
 
   setOptionEvents() {
