@@ -10,7 +10,7 @@ mn-select {
     white-space: nowrap;
 
     &:hover, &:focus {
-      background-color: $oc-gray-4;
+      background-color: $oc-gray-4 !important;
       outline: 0;
     }
 

@@ -81,7 +81,7 @@ class MnSelect extends HTMLElement {
     this.addEventListener('click', open)
     this.addEventListener('keyup', event => {
       if (event.key === 'Enter' || event.key === ' ') {
-        this.open()
+        this.open(event)
       }
     })
   }
@@ -91,7 +91,7 @@ class MnSelect extends HTMLElement {
       const keyIsArrowUpOrDown = event.key === 'ArrowUp' || event.key === 'ArrowDown'
 
       if (keyIsArrowUpOrDown) {
-        this.open()
+        this.open(event)
       }
     })
 
@@ -101,10 +101,8 @@ class MnSelect extends HTMLElement {
       .from(options)
       .forEach(option => option.addEventListener('keyup', event => {
         if (event.key === 'ArrowDown') {
-          console.log(event.target.previousElementSibling)
           event.target.previousElementSibling.focus()
         } else if (event.key === 'ArrowDown') {
-          console.log(event.target.nextElementSibling)
           event.target.nextElementSibling.focus()
         }
       }))
@@ -185,8 +183,11 @@ class MnSelect extends HTMLElement {
     this.classList.add('visible')
     this.mobileOptions.classList.add('visible')
     document.body.classList.add('mn-select-visible')
-    const focusedOption = this.querySelector('.mn-select-option[selected]') || this.querySelector('.mn-select-option:first-child')
-    focusedOption.focus()
+
+    if (event && event.type === 'keyup') {
+      const focusedOption = this.querySelector('.mn-select-option[selected]') || this.querySelector('.mn-select-option:first-child')
+      focusedOption.focus()
+    }
   }
 
   close(event) {
