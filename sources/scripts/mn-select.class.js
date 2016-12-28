@@ -9,7 +9,18 @@ class MnSelect extends HTMLElement {
     this.setOpenEvents()
     // this.setArrowEvents()
     this.setCloseEvents()
+    this.setNameGetter()
     return self
+  }
+
+  setNameGetter() {
+    const form = this.closest('form')
+    const name = this.getAttribute('name')
+    const element = this
+
+    if (form && name) {
+      Object.defineProperty(form, name, {get: () => element})
+    }
   }
 
   setTabIndex() {

@@ -11,10 +11,12 @@ html
     }
 body
   h1 mn-select
-  
-  mn-select#gender(placeholder='Sexo')
-    option(value='male') Masculino
-    option(value='female') Feminino
+  form
+    mn-select#gender(placeholder='Sexo' name='gender')
+      option(value='male') Masculino
+      option(value='female') Feminino
+
+    input(name='username')
 
   br
 
@@ -42,7 +44,8 @@ body
   script(src='vendor.js')
   script(src='mn-select.js')
   script.
-    var gender = document.querySelector('#gender')
+    var form = document.querySelector('form')
+    //- var gender = document.querySelector('#gender')
     //- gender.value = 'female'
   //- script.
   //-   document.addEventListener('keyup', function(key) {
