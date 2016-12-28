@@ -29,6 +29,8 @@
     background-color: white;
   }
 
+  .mn-select-option {outline: 0 !important}
+
   .mn-select-option:not(:first-child) {
     border-top: 1px solid $oc-gray-1;
   }
