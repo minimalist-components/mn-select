@@ -39,11 +39,16 @@ class MnSelect extends HTMLElement {
 
   set value(value) {
     this.setValue(value)
+    this.setAttribute('value', value)
     const target = this.querySelector(`.mn-select-option[value="${value}"]`)
 
     if (target) {
       this.setSelectedOption(target)
     }
+  }
+
+  get value() {
+    return this.getAttribute('value')
   }
 
   setMenu() {
