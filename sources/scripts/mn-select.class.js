@@ -225,6 +225,7 @@ class MnSelect extends HTMLElement {
   }
 
   open(event) {
+    this.close()
     if (event && event.target.classList.contains('.mn-select-option')) {
       return false
     }
