@@ -163,7 +163,7 @@ class MnSelect extends HTMLElement {
   }
 
   setCloseEvents() {
-    window.addEventListener('click', this.close)
+    const close = this.close
     this.mobileOptions.querySelector('button').addEventListener('click', () => this.close())
     this.mobileOptions.addEventListener('touchend', event => {
       if (event.target.classList.contains('mn-mobile-options')) {
@@ -175,13 +175,20 @@ class MnSelect extends HTMLElement {
         this.close()
       }
     })
-    document.body.addEventListener('click', this.close)
     document.addEventListener('keyup', () => {
       const esc = event.keyCode === 27
       let isOpened = document.body.classList.contains('mn-select-visible')
 
       if (esc && isOpened) {
         this.close()
+      }
+    })
+    document.addEventListener('click', event => {
+      const closest = event.target.closest('mn-select')
+      const isOption = event.target.classList.contains('mn-select-option')
+
+      if (!closest || isOption) {
+        close()
       }
     })
   }
@@ -232,21 +239,10 @@ class MnSelect extends HTMLElement {
     }
   }
 
-  close(event) {
+  close() {
     const select = document.querySelector('mn-select.visible')
-    // console.log(event)
-    if (event && select) {
-      event.stopPropagation()
-      const clickOutside = event.target.tagName === 'BODY'
-        || event.target.classList.contains('mn-mobile-options')
-        || event.target.classList.contains('mn-select-option')
 
-      if (clickOutside && select) {
-        document.body.classList.remove('mn-select-visible')
-        select.classList.remove('visible')
-        select.mobileOptions.classList.remove('visible')
-      }
-    } else if (select) {
+    if (select) {
       document.body.classList.remove('mn-select-visible')
       select.classList.remove('visible')
       select.mobileOptions.classList.remove('visible')
