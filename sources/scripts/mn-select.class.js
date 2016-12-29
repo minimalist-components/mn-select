@@ -163,6 +163,7 @@ class MnSelect extends HTMLElement {
   }
 
   setCloseEvents() {
+    window.addEventListener('click', this.close)
     this.mobileOptions.querySelector('button').addEventListener('click', () => this.close())
     this.mobileOptions.addEventListener('touchend', event => {
       if (event.target.classList.contains('mn-mobile-options')) {
@@ -233,6 +234,7 @@ class MnSelect extends HTMLElement {
 
   close(event) {
     const select = document.querySelector('mn-select.visible')
+    // console.log(event)
     if (event && select) {
       event.stopPropagation()
       const clickOutside = event.target.tagName === 'BODY'

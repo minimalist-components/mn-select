@@ -2,62 +2,70 @@ html
   meta(name='viewport' content='width=device-width, user-scalable=no')
   link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css')
   link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans')
-  link(rel='stylesheet' href='vendor.css')
-  link(rel='stylesheet' href='mn-select.css')
+
+  style
+    include ../../docs/vendor.css
+    include ../../dist/mn-select.css
+  
+  //- link(rel='stylesheet' href='vendor.css')
+  //- link(rel='stylesheet' href='mn-select.css')
+
   style.
-    body {
-      font-family: 'Open Sans', sans-serif;
-      -webkit-font-smoothing: antialiased;
+    mn-select {
+      font-size: 1.2rem;
+    }
+
+    form {width: 100%}
+
+    @media (min-width: 600px) {
+      form {
+        padding: 100px;
+        box-sizing: border-box;
+      }
     }
 body
-  h1 mn-select
-  
-  mn-select#gender(placeholder='Sexo')
-    option(value='male') Masculino
-    option(value='female') Feminino
+  h2 mn-select
+  include github-corner
 
-  //- form
-    mn-select#gender(placeholder='Sexo' name='gender' required)
-      option(value='male') Masculino
-      option(value='female') Feminino
+  .layout-fullscreen.layout-centered
+    .layout-container
+      form.layout-column.layout-sm-row
+        mn-select.flex-sm(placeholder='Select')
+          option(value='opt1') Option 1
+          option(value='opt2') Option 2
 
-    input(name='username')
+        mn-select.flex-sm(placeholder='Gender')
+          option(value='male') Male
+          option(value='female') Female
 
-    button submit
+        mn-select.flex-sm(placeholder='House')
+          option(value='stark') House Stark
+          option(value='targaryen') House Targaryen
+          option(value='lannister') House Lannister
+          option(value='tyrell') House Tyrell
+          option(value='baratheon') House Baratheon
+          option(value='bolton') House Bolton
+          option(value='martell') House Martell
+          option(value='tully') House Tully
+          option(value='arryn') House Arryn
+          option(value='mormont') House Mormont
+          option(value='greyjoy') House Greyjoy
+          option(value='frey') House Frey
+          option(value='forrester') House Forrester
+          option(value='karstark') House Karstark
+          option(value='from') Houses from the North
+          option(value='from') Houses from the Vale
+          option(value='lannister') House Lannister
+          option(value='from') Houses from Dorne
+          option(value='targaryen') House Targaryen
+          option(value='stark') House Stark
+          option(value='bolton') House Bolton
+          option(value='baratheon') House Baratheon
 
-  br
+  script
+    include ../../docs/vendor.js
+    include ../../dist/mn-select.js
 
-  mn-select#whatever(placeholder='Whatever')
-    option(value='1' selected) Lorem ipsum
-    option(value='2') dolor sit amet lorem lorem dolor sit amet lorem lorem
-    option(value='3') lero lero
-    option(value='4') bark bark
-    option(value='5') lorem dolor
-    option(value='opt1') Option 1
-    option(value='opt2') Option 2
-    option(value='opt3') Option 3
-    option(value='opt4') Option 4
-    option(value='opt5') Option 5
-
-  br
-
-  mn-select#options
-    option(value='1') Option 1
-    option(value='2') Option 2
-    option(value='3') Option 3
-    option(value='4') Option 4
-    option(value='5') Option 5
-  
-  script(src='vendor.js')
-  script(src='mn-select.js')
-  script.
-    var form = document.querySelector('form')
-    //- var gender = document.querySelector('#gender')
-    //- gender.value = 'female'
-  //- script.
-  //-   document.addEventListener('keyup', function(key) {
-  //-     var j = key.which === 74
-  //-     var mnSelect = document.querySelectorAll('mn-select')
-  //-     mnSelect[1].setValue('male')
-  //-   })
+  //- script(src='vendor.js')
+  //- script(src='mn-select.js')
 
