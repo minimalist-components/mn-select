@@ -7,32 +7,24 @@ mn-select {
     top: 0; left: 0;
 
     @media (max-width: 767px) {
-      // position: fixed;
-      // width: 100vw; height: 100vh;
-      // transform: translateY(100vh);
-      // transition: transform .2s .21s ease;
-      // z-index: 15;
       display: none;
     }
 
     @media (min-width: 768px) {
       visibility: hidden;
       min-width: calc(100% + 14px);
-      // max-width: 15em;
       max-height: 16.5em;
       position: absolute;
+      overflow: hidden;
     }
   }
 
 
   &.visible {
     menu {
-      // @media (max-width: 767px) {
-      //   transform: translateY(0);
-      // }
-
       @media (min-width: 768px) {
         visibility: visible;
+        overflow: auto;
       }
     }
   }
