@@ -2,9 +2,9 @@
 
 Minimalist select component, agnostic to framworks.
 
-See the [demo](minimalist-components.github.io/mn-select/)
+See the [demo](https://minimalist-components.github.io/mn-select/)
 
-<!-- [![preview demo](https://raw.githubusercontent.com/minimalist-components/mn-select/master/sources/example/mn-select.gif)](minimalist-components.github.io/mn-select/)  -->
+<!-- [![preview demo](https://raw.githubusercontent.com/minimalist-components/mn-select/master/sources/example/mn-select.gif)](https://minimalist-components.github.io/mn-select/)  -->
 
 ### Install
 
