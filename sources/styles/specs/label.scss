@@ -15,6 +15,12 @@ mn-select {
     pointer-events: none;
   }
 
+  &[disabled] {
+    &:before {
+      color: $oc-gray-4;
+    }
+  }
+
   &.has-value:before {
     position: absolute;
     top: 0;
