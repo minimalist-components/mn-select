@@ -1,4 +1,4 @@
-.mn-mobile-options {
+.mn-select-mobile {
   position: fixed;
   top: 0;
   left: 0;
@@ -59,7 +59,7 @@
   }
 }
 
-.mn-select-visible .mn-mobile-options.visible {
+.mn-select-visible .mn-select-mobile.visible {
   @media (max-width: 767px) {
     visibility: visible;
     z-index: 110;

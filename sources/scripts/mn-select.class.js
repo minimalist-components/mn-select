@@ -26,16 +26,17 @@ class MnSelect extends HTMLElement {
     Array
       .from(this.children)
       .forEach(child => {
-        const fallbackOption = document.createElement('div')
-        fallbackOption.classList.add('mn-select-option')
-        fallbackOption.textContent = child.textContent
+        // fallback option, some browsers dont support tag option
+        const option = document.createElement('div')
+        option.classList.add('mn-select-option')
+        option.textContent = child.textContent
 
         Array
           .from(child.attributes)
-          .forEach(attr => fallbackOption.setAttribute(attr.name, attr.value))
+          .forEach(attr => option.setAttribute(attr.name, attr.value))
 
         child.parentNode.removeChild(child)
-        menu.appendChild(fallbackOption)
+        menu.appendChild(option)
       })
 
     this.insertBefore(menu, this.firstChild)
@@ -46,12 +47,12 @@ class MnSelect extends HTMLElement {
     const menu = this.querySelector('menu').cloneNode(true)
     const cancelButton = document.createElement('button')
 
-    options.classList.add('mn-mobile-options')
-    menu.classList.remove('mn-card')
+    options.classList.add('mn-select-mobile')
+    menu.removeAttribute('class')
     menu.removeAttribute('style')
     cancelButton.textContent = 'cancel'
 
-    this.mobileOptions = options
+    this.mobile = options
     options.append(menu)
     options.append(cancelButton)
 
@@ -59,55 +60,57 @@ class MnSelect extends HTMLElement {
   }
 
   setSelected() {
-    const selected = document.createElement('div')
+    const viewValue = document.createElement('div')
     const selectedOption = this.getAttribute('placeholder')
       ? this.querySelector('.mn-select-option[selected]')
-      : this.querySelector('.mn-select-option[selected]') || this.querySelector('.mn-select-option')
+      : this.querySelector('.mn-select-option[selected]')
+        || this.querySelector('.mn-select-option')
 
     if (selectedOption) {
       const value = selectedOption.getAttribute('value') || selectedOption.textContent
       this.value = value
       this.classList.add('has-value')
-      selected.textContent = selectedOption.textContent
+      viewValue.textContent = selectedOption.textContent
     }
-    this.insertBefore(selected, this.firstChild)
+    this.insertBefore(viewValue, this.firstChild)
   }
 
   setOptionEvents() {
     const options = this.querySelectorAll('.mn-select-option')
-    const mobileOptions = Array.from(this.mobileOptions.querySelectorAll('.mn-select-option'))
+    const mobile = Array.from(this.mobile.querySelectorAll('.mn-select-option'))
 
     Array
       .from(options)
-      .concat(mobileOptions)
+      .concat(mobile)
       .forEach(option => option.addEventListener('click', event => {
         const value = event.target.getAttribute('value') || event.target.textContent
-        this.setSelectedOption(event.target)
         this.value = value
         this.close()
       }))
   }
 
   setOpenEvents() {
-    const open = this.open
-    this.addEventListener('click', open)
-    this.addEventListener('keyup', event => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        this.open(event)
+    this.addEventListener('click', this.open)
+    this.addEventListener('keydown', event => {
+      switch (event.key) {
+        case 'Enter':
+        case ' ':
+          this.open()
+          event.preventDefault()
       }
     })
   }
 
   setCloseEvents() {
-    const close = this.close
-    this.mobileOptions.querySelector('button').addEventListener('click', () => this.close())
-    this.mobileOptions.addEventListener('touchend', event => {
-      if (event.target.classList.contains('mn-mobile-options')) {
-        this.close()
-      }
-    })
-    this.mobileOptions.addEventListener('click', event => {
-      if (event.target.classList.contains('mn-mobile-options')) {
+    this.mobile.querySelector('button').addEventListener('click', () => this.close())
+    // need check if click in mobile outside works with event below to document click
+    // this.mobile.addEventListener('touchend', event => {
+    //   if (event.target.classList.contains('mn-select-mobile')) {
+    //     this.close()
+    //   }
+    // })
+    this.mobile.addEventListener('click', event => {
+      if (event.target.classList.contains('mn-select-mobile')) {
         this.close()
       }
     })
@@ -120,11 +123,11 @@ class MnSelect extends HTMLElement {
       }
     })
     document.addEventListener('click', event => {
-      const closest = event.target.closest('mn-select')
-      const isOption = event.target.classList.contains('mn-select-option')
+      const clickOutside = !event.target.closest('mn-select')
+      const selectOption = event.target.classList.contains('mn-select-option')
 
-      if (!closest || isOption) {
-        close()
+      if (clickOutside || selectOption) {
+        this.close()
       }
     })
   }
@@ -140,71 +143,44 @@ class MnSelect extends HTMLElement {
   }
 
   set value(value) {
-    this.setValue(value)
-    this.setAttribute('value', value)
-    const target = this.querySelector(`.mn-select-option[value="${value}"]`)
+    const option = this.querySelector(`.mn-select-option[value="${value}"]`)
 
-    if (target) {
-      this.setSelectedOption(target)
+    if (option) {
+      this.querySelector('div').textContent = option.textContent
+      this.classList.add('has-value')
+      const lastSelected = option.parentNode.querySelector('.mn-select-option[selected]')
+
+      if (lastSelected) {
+        lastSelected.removeAttribute('selected')
+      }
+      option.setAttribute('selected', 'selected')
+    } else {
+      console.error(`MN-SELECT OPTION_UNDEFINED
+        You're trying set a value (${value}) to mn-select,
+        but there is no option with this value to be displayed`)
     }
+
+    this.setAttribute('value', value)
   }
 
   get value() {
     return this.getAttribute('value') || undefined
   }
 
-  setValue(value) {
-    const option = this.querySelector(`.mn-select-option[value="${value}"]`)
-    const viewValue = option
-      ? option.textContent
-      : null
-
-    if (viewValue) {
-      this.setViewValue(viewValue)
-      this.classList.add('has-value')
-    } else {
-      console.error(`MN-SELECT OPTION_UNDEFINED
-        You're trying set a value (${value}) to mn-select,
-        but there is no option with this value to be displayed`)
-    }
-  }
-
-  setViewValue(text) {
-    this.querySelector('div').textContent = text
-  }
-
-  setSelectedOption(target) {
-    const lastSelected = target.parentNode.querySelector('.mn-select-option[selected]')
-
-    if (lastSelected) {
-      lastSelected.removeAttribute('selected')
-    }
-    target.setAttribute('selected', 'selected')
-  }
-
-  open(event) {
+  open() {
     this.close()
-    if (event && event.target.classList.contains('.mn-select-option')) {
-      return false
-    }
     this.classList.add('visible')
-    this.mobileOptions.classList.add('visible')
+    this.mobile.classList.add('visible')
     document.body.classList.add('mn-select-visible')
-
-    if (event && event.type === 'keyup') {
-      const focusedOption = this.querySelector('.mn-select-option[selected]')
-        || this.querySelector('.mn-select-option:first-child')
-      focusedOption.focus()
-    }
   }
 
   close() {
     const select = document.querySelector('mn-select.visible')
 
     if (select) {
-      document.body.classList.remove('mn-select-visible')
       select.classList.remove('visible')
-      select.mobileOptions.classList.remove('visible')
+      select.mobile.classList.remove('visible')
+      document.body.classList.remove('mn-select-visible')
     }
   }
 }
