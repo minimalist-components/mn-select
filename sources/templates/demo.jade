@@ -1,0 +1,99 @@
+html
+  meta(name='viewport' content='width=device-width, user-scalable=no')
+  link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css')
+  link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans')
+
+
+  block styles
+    link(rel='stylesheet' href='docs/vendor.css')
+    link(rel='stylesheet' href='dist/mn-select.css')
+
+  style.
+    mn-select {
+      font-size: 1.2rem;
+    }
+
+    form {width: 100%}
+
+    @media (min-width: 600px) {
+      form {
+        padding: 100px;
+        box-sizing: border-box;
+      }
+    }
+body
+  h2 mn-select
+  include github-corner
+
+  .layout-fullscreen.layout-centered
+    .layout-container
+      form.layout-column.layout-sm-row
+        mn-select.flex-sm#opt(placeholder='Select')
+          option(value='opt1') Option 1
+          option(value='opt2') Option 2
+
+        mn-select.flex-sm(placeholder='Gender')
+          option(value='male') Male
+          option(value='female') Female
+
+        mn-select.flex-sm(placeholder='House')
+          option(value='stark') House Stark
+          option(value='targaryen') House Targaryen
+          option(value='lannister') House Lannister
+          option(value='tyrell') House Tyrell
+          option(value='baratheon') House Baratheon
+          option(value='bolton') House Bolton
+          option(value='martell') House Martell
+          option(value='tully') House Tully
+          option(value='arryn') House Arryn
+          option(value='mormont') House Mormont
+          option(value='greyjoy') House Greyjoy
+          option(value='frey') House Frey
+          option(value='forrester') House Forrester
+          option(value='karstark') House Karstark
+          option(value='from') Houses from the North
+          option(value='from') Houses from the Vale
+          option(value='lannister') House Lannister
+          option(value='from') Houses from Dorne
+          option(value='targaryen') House Targaryen
+          option(value='stark') House Stark
+          option(value='bolton') House Bolton
+          option(value='baratheon') House Baratheon
+  
+  .docs.layout-container
+    mn-code.sh.
+      # not available ye, working in progress
+      bower install --save mn-select
+
+    p Or just download the main files, located in dist/
+
+    h3 usage
+    p just use the tag <strong>mn-select</strong> and <strong>mn-option</strong>, e.g.
+    mn-code.html.
+      <mn-select>
+        <option value="#fff">White</option>
+        <option value="#000">Black</option>
+      </mn-select>
+
+    p To begin with an value, you can use the attribute <strong>selected</strong> in tag option
+    mn-code.html.
+      <mn-select>
+        <option value="#fff">White</option>
+        <option value="#000" selected>Black</option>
+      </mn-select>
+
+    p Or just use the attribute <strong>value</strong> in mn-select
+    mn-code.html.
+      <mn-select value="#fff">
+        <option value="#fff">White</option>
+        <option value="#000">Black</option>
+      </mn-select>
+
+    p If you want set the value from javascript, just assign a value to property <strong>value</strong>, e.g.
+    mn-code.js.
+      document.querySelector('mn-select').value = '#000'
+  
+  block scripts
+    script(src='docs/vendor.js')
+    script(src='dist/mn-select.js')
+
