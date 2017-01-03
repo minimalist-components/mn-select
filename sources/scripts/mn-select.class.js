@@ -108,9 +108,9 @@ class MnSelect extends HTMLElement {
 
         if (nextFocusable) {
           nextFocusable.focus()
+          event.stopPropagation()
+          event.preventDefault()
         }
-        event.stopPropagation()
-        event.preventDefault()
       }))
 
     options
