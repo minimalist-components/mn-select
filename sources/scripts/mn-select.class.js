@@ -30,6 +30,7 @@ class MnSelect extends HTMLElement {
         const option = document.createElement('div')
         option.classList.add('mn-select-option')
         option.textContent = child.textContent
+        option.setAttribute('tabindex', '0')
 
         Array
           .from(child.attributes)
@@ -169,11 +170,16 @@ class MnSelect extends HTMLElement {
     return this.getAttribute('value') || undefined
   }
 
-  open() {
+  open(event) {
     this.close()
     this.classList.add('visible')
     this.mobile.classList.add('visible')
     document.body.classList.add('mn-select-visible')
+
+    if (event) {
+      const element = document.elementFromPoint(event.clientX, event.clientY)
+      element.focus()
+    }
   }
 
   close() {

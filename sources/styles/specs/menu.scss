@@ -12,10 +12,12 @@ mn-select {
 
     @media (min-width: 768px) {
       visibility: hidden;
+      opacity: 0;
       min-width: calc(100% + 14px);
       max-height: 16.5em;
       position: absolute;
       overflow: hidden;
+      transition: opacity .2s ease;
     }
   }
 
@@ -23,6 +25,7 @@ mn-select {
   &.visible {
     menu {
       @media (min-width: 768px) {
+        opacity: 1;
         visibility: visible;
         overflow: auto;
       }
