@@ -84,10 +84,40 @@ class MnSelect extends HTMLElement {
       .from(options)
       .concat(mobile)
       .forEach(option => option.addEventListener('click', event => {
-        console.log('click')
         const value = event.target.getAttribute('value') || event.target.textContent
         this.value = value
         this.close()
+      }))
+
+    options
+      .forEach(option => option.addEventListener('mousemove', event => {
+        event.target.focus()
+      }))
+
+    options
+      .forEach(option => option.addEventListener('keydown', event => {
+        let nextFocusable
+        switch (event.key) {
+          case 'ArrowDown':
+            nextFocusable = event.target.nextElementSibling
+            break
+          case 'ArrowUp':
+            nextFocusable = event.target.previousElementSibling
+            break
+        }
+
+        if (nextFocusable) {
+          nextFocusable.focus()
+        }
+      }))
+
+    options
+      .forEach(option => option.addEventListener('keydown', event => {
+        if (event.key === 'Enter') {
+          const value = event.target.getAttribute('value') || event.target.textContent
+          this.value = value
+          this.close()
+        }
       }))
   }
 
