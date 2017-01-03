@@ -109,6 +109,8 @@ class MnSelect extends HTMLElement {
         if (nextFocusable) {
           nextFocusable.focus()
         }
+        event.stopPropagation()
+        event.preventDefault()
       }))
 
     options
@@ -117,18 +119,23 @@ class MnSelect extends HTMLElement {
           const value = event.target.getAttribute('value') || event.target.textContent
           this.value = value
           this.close()
+          this.focus()
           event.stopPropagation()
         }
       }))
   }
 
   setOpenEvents() {
-    this.addEventListener('click', this.open)
+    this.addEventListener('click', () => {
+      this.open()
+      this.focusOption(event)
+    })
     this.addEventListener('keydown', event => {
       switch (event.key) {
         case 'Enter':
         case ' ':
           this.open()
+          this.focusOption(event)
           event.preventDefault()
       }
     })
@@ -195,18 +202,11 @@ class MnSelect extends HTMLElement {
     return this.getAttribute('value') || undefined
   }
 
-  open(event) {
+  open() {
     this.close()
     this.classList.add('visible')
     this.mobile.classList.add('visible')
     document.body.classList.add('mn-select-visible')
-
-    if (event) {
-      const element = document.elementFromPoint(event.clientX, event.clientY)
-      if (element.classList.contains('mn-select-option')) {
-        element.focus()
-      }
-    }
   }
 
   close() {
@@ -216,6 +216,18 @@ class MnSelect extends HTMLElement {
       select.classList.remove('visible')
       select.mobile.classList.remove('visible')
       document.body.classList.remove('mn-select-visible')
+    }
+  }
+
+  focusOption(event) {
+    if (event.type === 'click') {
+      // focus on option behind mouse
+      const option = document.elementFromPoint(event.clientX, event.clientY)
+      option.focus()
+    } else if (event.type === 'keydown') {
+      const option = this.querySelector('.mn-select-option[selected]')
+        || this.querySelector('.mn-select-option:first-child')
+      option.focus()
     }
   }
 }
