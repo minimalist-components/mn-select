@@ -30,7 +30,7 @@ class MnSelect extends HTMLElement {
         const option = document.createElement('div')
         option.classList.add('mn-select-option')
         option.textContent = child.textContent
-        option.setAttribute('tabindex', '0')
+        option.setAttribute('tabindex', '-1')
 
         Array
           .from(child.attributes)
@@ -137,12 +137,6 @@ class MnSelect extends HTMLElement {
   setCloseEvents() {
     this.addEventListener('focus', () => this.close())
     this.mobile.querySelector('button').addEventListener('click', () => this.close())
-    // need check if click in mobile outside works with event below to document click
-    // this.mobile.addEventListener('touchend', event => {
-    //   if (event.target.classList.contains('mn-select-mobile')) {
-    //     this.close()
-    //   }
-    // })
     this.mobile.addEventListener('click', event => {
       if (event.target.classList.contains('mn-select-mobile')) {
         this.close()
