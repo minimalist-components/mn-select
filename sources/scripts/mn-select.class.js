@@ -117,6 +117,7 @@ class MnSelect extends HTMLElement {
           const value = event.target.getAttribute('value') || event.target.textContent
           this.value = value
           this.close()
+          event.stopPropagation()
         }
       }))
   }
@@ -208,7 +209,9 @@ class MnSelect extends HTMLElement {
 
     if (event) {
       const element = document.elementFromPoint(event.clientX, event.clientY)
-      element.focus()
+      if (element.classList.contains('mn-select-option')) {
+        element.focus()
+      }
     }
   }
 
