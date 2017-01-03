@@ -102,6 +102,7 @@ class MnSelect extends HTMLElement {
   }
 
   setCloseEvents() {
+    this.addEventListener('blur', () => this.close())
     this.mobile.querySelector('button').addEventListener('click', () => this.close())
     // need check if click in mobile outside works with event below to document click
     // this.mobile.addEventListener('touchend', event => {
@@ -123,10 +124,11 @@ class MnSelect extends HTMLElement {
       }
     })
     document.addEventListener('click', event => {
-      const clickOutside = !event.target.closest('mn-select')
+      // const clickOutside = !event.target.closest('mn-select')
       const selectOption = event.target.classList.contains('mn-select-option')
 
-      if (clickOutside || selectOption) {
+      // if (clickOutside || selectOption) {
+      if (selectOption) {
         this.close()
       }
     })
