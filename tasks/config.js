@@ -24,7 +24,7 @@ module.exports = {
     output: 'mn-select.js',
   },
   lintScripts: [
-    './gulpfile.js',
+    './gulpfile.babe..js',
     './tasks/**/*.js',
     './sources/**/*.js',
   ],
