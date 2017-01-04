@@ -8,7 +8,8 @@ class MnSelect extends HTMLElement {
     this.setOptionEvents()
     this.setOpenEvents()
     this.setCloseEvents()
-    this.setNameGetter()
+    this.setFormGetter()
+    this.setValidation()
     return self
   }
 
@@ -167,7 +168,7 @@ class MnSelect extends HTMLElement {
     })
   }
 
-  setNameGetter() {
+  setFormGetter() {
     const form = this.closest('form')
     const name = this.getAttribute('name')
     const element = this
@@ -177,11 +178,24 @@ class MnSelect extends HTMLElement {
     }
   }
 
+  setValidation() {
+    const required = this.getAttribute('required')
+    if (required) {
+      const input = document.createElement('input')
+      input.setAttribute('required', 'required')
+      input.setAttribute('name', this.getAttribute('name') || this.id)
+      input.style.visibility = 'hidden'
+      input.style.position = 'absolute'
+      this.append(input)
+    }
+  }
+
   set value(value) {
     const option = this.querySelector(`.mn-select-option[value="${value}"]`)
 
     if (option) {
       this.querySelector('div').textContent = option.textContent
+      this.querySelector('input').value = value
       this.classList.add('has-value')
       const lastSelected = option.parentNode.querySelector('.mn-select-option[selected]')
 
