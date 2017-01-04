@@ -192,10 +192,13 @@ class MnSelect extends HTMLElement {
 
   set value(value) {
     const option = this.querySelector(`.mn-select-option[value="${value}"]`)
+    const input = this.querySelector('input')
 
     if (option) {
       this.querySelector('div').textContent = option.textContent
-      this.querySelector('input').value = value
+      if (input) {
+        input.value = value
+      }
       this.classList.add('has-value')
       const lastSelected = option.parentNode.querySelector('.mn-select-option[selected]')
 
