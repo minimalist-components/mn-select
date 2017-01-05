@@ -1,5 +1,6 @@
 mn-select {
   > option {display: none}
+
   .mn-select-option {
     padding: 0 1em;
     line-height: 3rem;
@@ -9,10 +10,10 @@ mn-select {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    outline: 0 !important;
 
-    &:hover, &:focus {
+    &:hover:not(.keydown), &:focus {
       background-color: $oc-gray-4 !important;
-      outline: 0;
     }
 
     &[selected] {

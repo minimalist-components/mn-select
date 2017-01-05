@@ -93,6 +93,7 @@ class MnSelect extends HTMLElement {
     options
       .forEach(option => option.addEventListener('mousemove', event => {
         event.target.focus()
+        event.target.classList.remove('keydown')
       }))
 
     options
@@ -108,6 +109,7 @@ class MnSelect extends HTMLElement {
         }
 
         if (nextFocusable) {
+          event.target.classList.add('keydown')
           nextFocusable.focus()
           event.stopPropagation()
           event.preventDefault()
