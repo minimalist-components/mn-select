@@ -226,6 +226,7 @@ class MnSelect extends HTMLElement {
     this.classList.add('visible')
     this.mobile.classList.add('visible')
     document.body.classList.add('mn-select-visible')
+    window.MnBackdrop.show()
   }
 
   close() {
@@ -235,6 +236,7 @@ class MnSelect extends HTMLElement {
       select.classList.remove('visible')
       select.mobile.classList.remove('visible')
       document.body.classList.remove('mn-select-visible')
+      window.MnBackdrop.hide()
     }
   }
 

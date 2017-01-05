@@ -14,7 +14,8 @@
   "dependencies": {
     "document-register-element": "^1.3.0",
     "open-color": "^1.4.1",
-    "mn-card": "^0.0.2"
+    "mn-card": "^0.0.2",
+    "mn-backdrop": "^0.0.2"
   },
   "devDependencies": {
     "mn-gh-page": "0.0.10"
