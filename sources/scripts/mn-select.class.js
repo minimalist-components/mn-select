@@ -55,10 +55,10 @@ class MnSelect extends HTMLElement {
     cancelButton.textContent = 'cancel'
 
     this.mobile = options
-    options.append(menu)
-    options.append(cancelButton)
+    options.appendChild(menu)
+    options.appendChild(cancelButton)
 
-    document.body.append(options)
+    document.body.appendChild(options)
   }
 
   setSelected() {
@@ -188,7 +188,7 @@ class MnSelect extends HTMLElement {
       input.setAttribute('name', this.getAttribute('name') || this.id)
       input.style.visibility = 'hidden'
       input.style.position = 'absolute'
-      this.append(input)
+      this.appendChild(input)
     }
   }
 
