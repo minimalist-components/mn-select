@@ -90,13 +90,15 @@ class MnSelect extends HTMLElement {
         this.close()
       }))
 
-    options
+    Array
+      .from(options)
       .forEach(option => option.addEventListener('mousemove', event => {
         event.target.focus()
         event.target.classList.remove('keydown')
       }))
 
-    options
+    Array
+      .from(options)
       .forEach(option => option.addEventListener('keydown', event => {
         let nextFocusable
         switch (event.key) {
@@ -116,7 +118,8 @@ class MnSelect extends HTMLElement {
         }
       }))
 
-    options
+    Array
+      .from(options)
       .forEach(option => option.addEventListener('keydown', event => {
         if (event.key === 'Enter') {
           const value = event.target.getAttribute('value') || event.target.textContent
@@ -129,7 +132,7 @@ class MnSelect extends HTMLElement {
   }
 
   setOpenEvents() {
-    this.addEventListener('click', () => {
+    this.addEventListener('click', event => {
       this.open()
       this.focusOption(event)
     })
@@ -152,7 +155,7 @@ class MnSelect extends HTMLElement {
         this.close()
       }
     })
-    document.addEventListener('keyup', () => {
+    document.addEventListener('keyup', event => {
       const esc = event.keyCode === 27
       let isOpened = document.body.classList.contains('mn-select-visible')
 
