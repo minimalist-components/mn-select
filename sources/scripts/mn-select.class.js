@@ -243,6 +243,14 @@ class MnSelect extends window.MnInput {
     }
   }
 
+  focus() {
+    // this.querySelector('input').focus()
+  }
+
+  blur() {
+    // this.querySelector('input').blur()
+  }
+
   focusOption(event) {
     if (event.type === 'click') {
       // focus on option behind mouse
