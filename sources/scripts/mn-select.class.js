@@ -1,4 +1,4 @@
-class MnSelect extends HTMLElement {
+class MnSelect extends window.MnInput {
   constructor(self) {
     self = super(self)
     this.tabIndex()

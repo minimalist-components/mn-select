@@ -16,7 +16,7 @@ function scriptsTask() {
     .pipe(sourcemaps.init())
     .pipe(babel())
     .pipe(concat(scripts.output))
-    // .pipe(uglify({mangle: false}))
+    .pipe(uglify({mangle: false}))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(scripts.dest))
 }
