@@ -1,0 +1,10 @@
+mn-select.mn-input {
+  &:before {
+    position: static;
+    transition: none;
+  }
+
+  &.has-value:before {
+    position: absolute;
+  }
+}
