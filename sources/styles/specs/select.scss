@@ -1,19 +1,9 @@
 mn-select {
-  max-width: 100%;
-  box-sizing: border-box;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
-
-  line-height: 2em;
-  -webkit-appearance: none;
-  text-overflow: ellipsis;
-  -webkit-user-select: none;
-
   > div {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
-
 
   &[disabled] {
     &:after {
