@@ -20,7 +20,7 @@ class MnSelect extends window.MnInput {
 
   setMenu() {
     const menu = document.createElement('menu')
-    menu.style.transform = 'translate(-17px, -5px)'
+    menu.style.transform = 'translate(-19px, -5px)'
     // inherit from .mn-input
     this.removeChild(this.querySelector('input'))
 
