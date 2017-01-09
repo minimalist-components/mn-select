@@ -1,6 +1,6 @@
 {
   "name": "mn-select",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Just a select component",
   "main": [
     "dist/mn-select.css",
@@ -12,12 +12,13 @@
   "license": "MIT",
   "homepage": "",
   "dependencies": {
-    "mn-input": "^0.0.37",
+    "mn-input": "^0.0.38",
     "open-color": "^1.4.1",
     "mn-card": "^0.0.5",
     "mn-backdrop": "^0.0.3"
   },
   "devDependencies": {
-    "mn-gh-page": "^0.0.12"
+    "mn-gh-page": "^0.0.12",
+    "mn-form": "^0.0.3"
   }
 }

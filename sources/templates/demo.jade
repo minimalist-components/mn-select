@@ -26,13 +26,13 @@ body
 
   .layout-fullscreen.layout-centered
     .layout-container
-      form.layout-column.layout-sm-row
+      mn-form.layout-column.layout-sm-row
         mn-select.flex-sm#opt(placeholder='Select')
           option(value='opt1') Option 1
           option(value='opt2') Option 2
 
-        mn-select.flex-sm(placeholder='Gender' disabled)
-          option(value='male' selected) Male
+        mn-select.flex-sm(placeholder='Gender')
+          option(value='male') Male
           option(value='female') Female
 
         mn-select.flex-sm(placeholder='House')
@@ -58,6 +58,8 @@ body
           option(value='stark') House Stark
           option(value='bolton') House Bolton
           option(value='baratheon') House Baratheon
+
+        //- button send
   
   .docs.layout-container
     mn-code.sh.
@@ -94,14 +96,4 @@ body
   block scripts
     script(src='docs/vendor.js')
     script(src='dist/mn-select.js')
-  //- script.
-    var form = document.querySelector('form')
-    form.setAttribute('novalidate', 'novalidate')
-    form.addEventListener('submit', submit)
-
-    function submit(event) {
-      form.classList.add('submitted')
-      event.preventDefault()
-      console.log('valid', form.checkValidity())
-    }
 
