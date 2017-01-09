@@ -12,7 +12,7 @@
   "license": "MIT",
   "homepage": "",
   "dependencies": {
-    "mn-input": "^0.0.33",
+    "mn-input": "^0.0.36",
     "open-color": "^1.4.1",
     "mn-card": "^0.0.5",
     "mn-backdrop": "^0.0.3"

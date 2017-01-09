@@ -7,8 +7,6 @@ mn-select {
   -webkit-appearance: none;
   text-overflow: ellipsis;
   -webkit-user-select: none;
-  box-shadow: 0 1px 0 $oc-gray-5;
-  transition: box-shadow .2s ease;
 
   > div {
     white-space: nowrap;
@@ -16,17 +14,8 @@ mn-select {
     text-overflow: ellipsis;
   }
 
-  &:focus {
-    box-shadow: 0 2px 0 $oc-gray-7;
-    outline: 0;
-  }
-
 
   &[disabled] {
-    box-shadow: 0 1px 0 $oc-gray-5;
-    color: $oc-gray-6;
-    pointer-events: none;
-
     &:after {
       border-top: .35em solid $oc-gray-4;
     }
