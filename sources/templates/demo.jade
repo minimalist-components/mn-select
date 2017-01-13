@@ -35,7 +35,7 @@ body
           option(value='male') Male
           option(value='female') Female
 
-        mn-select.flex-sm(placeholder='House')
+        mn-select.flex-sm(placeholder='House' required)
           option(value='stark') House Stark
           option(value='targaryen') House Targaryen
           option(value='lannister') House Lannister
@@ -96,4 +96,9 @@ body
   block scripts
     script(src='docs/vendor.js')
     script(src='dist/mn-select.js')
+    //- script.
+      var form = document.querySelector('mn-form')
+      form.onSubmit = function() {
+        console.log('submit')
+      }
 

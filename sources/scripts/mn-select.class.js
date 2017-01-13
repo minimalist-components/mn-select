@@ -219,7 +219,7 @@ class MnSelect extends window.MnInput {
         but there is no option with this value to be displayed`)
     }
 
-
+    this.validate()
     const changeEvent = new CustomEvent('change', {value})
     this.dispatchEvent(changeEvent)
     this.setAttribute('value', value)

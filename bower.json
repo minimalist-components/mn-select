@@ -19,6 +19,6 @@
   },
   "devDependencies": {
     "mn-gh-page": "^0.0.12",
-    "mn-form": "^0.0.3"
+    "mn-form": "^0.0.5"
   }
 }
