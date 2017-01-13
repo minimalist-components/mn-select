@@ -20,7 +20,7 @@ Or just download the main files, located in [dist/](https://github.com/minimalis
 
 ### Usage
 
-just use the tag `mn-select` and `mn-option`, e.g.
+just use the tag `mn-select` and `option`, e.g.
 
 ```html
 <mn-select>
