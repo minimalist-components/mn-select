@@ -192,6 +192,7 @@ class MnSelect extends window.MnInput {
       input.setAttribute('required', 'required')
       input.setAttribute('name', this.getAttribute('name') || this.id)
       input.style.visibility = 'hidden'
+      input.style.position = 'absolute'
       this.appendChild(input)
     }
   }
