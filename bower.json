@@ -12,10 +12,10 @@
   "license": "MIT",
   "homepage": "",
   "dependencies": {
-    "mn-input": "^0.0.38",
+    "mn-input": "^0.0.39",
     "open-color": "^1.4.1",
-    "mn-card": "^0.0.5",
-    "mn-backdrop": "^0.0.3"
+    "mn-card": "^0.1.0",
+    "mn-backdrop": "^0.1.0"
   },
   "devDependencies": {
     "mn-gh-page": "^0.0.12",
