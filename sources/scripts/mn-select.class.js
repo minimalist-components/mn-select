@@ -75,7 +75,16 @@ class MnSelect extends window.MnInput {
       this.value = value
       this.classList.add('has-value')
       viewValue.textContent = selectedOption.textContent
+    } else if (this.getAttribute('value')) {
+      const value = this.getAttribute('value')
+      this.value = value
+      const option = document.querySelector(`.mn-select-option[value="${value}"]`)
+
+      if (option) {
+        viewValue.textContent = option.textContent
+      }
     }
+
     this.insertBefore(viewValue, this.firstChild)
   }
 
