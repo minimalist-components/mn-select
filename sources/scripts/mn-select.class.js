@@ -78,7 +78,7 @@ class MnSelect extends window.MnInput {
     } else if (this.getAttribute('value')) {
       const value = this.getAttribute('value')
       this.value = value
-      const option = document.querySelector(`.mn-select-option[value="${value}"]`)
+      const option = document.querySelector(`.mn-select-option[value='${value}']`)
 
       if (option) {
         viewValue.textContent = option.textContent
@@ -207,11 +207,18 @@ class MnSelect extends window.MnInput {
   }
 
   set value(value) {
-    const option = this.querySelector(`.mn-select-option[value="${value}"]`)
+    value = typeof value === 'object'
+      ? JSON.stringify(value)
+      : value
+
+    const option = this.querySelector(`.mn-select-option[value='${value}']`)
     const input = this.querySelector('input')
 
     if (option) {
-      this.querySelector('div').textContent = option.textContent
+      const viewValue = this.querySelector('div:not(.mn-select-option)')
+      viewValue
+        ? viewValue.textContent = option.textContent
+        : null
       if (input) {
         input.value = value
       }
@@ -235,7 +242,16 @@ class MnSelect extends window.MnInput {
   }
 
   get value() {
-    return this.getAttribute('value') || undefined
+    let attrValue
+    try {
+      attrValue = this.getAttribute('value')
+        ? JSON.parse(this.getAttribute('value'))
+        : this.getAttribute('value')
+    } catch (e) {
+      attrValue = this.getAttribute('value')
+    }
+
+    return attrValue || undefined
   }
 
   open() {
