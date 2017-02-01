@@ -1,6 +1,5 @@
 import gulp from 'gulp'
 import packageFiles from 'package-files'
-import bowerFiles from 'bower-files'
 import concat from 'gulp-concat'
 import uglify from 'gulp-uglify'
 
@@ -9,7 +8,7 @@ gulp.task('vendorJS', vendorJSTask)
 function vendorJSTask() {
   const devDependencies = [
     'mn-gh-page',
-    // 'mn-form',
+    'mn-form',
   ]
 
   const dependencies = packageFiles(devDependencies)
@@ -20,13 +19,8 @@ function vendorJSTask() {
         : item
     )
 
-  const bowerDeps = bowerFiles()
-    .ext('js')
-    .dev()
-    .files
-
   return gulp
-    .src(dependencies.concat(bowerDeps))
+    .src(dependencies)
     .pipe(concat('vendor.js'))
     .pipe(uglify())
     .pipe(gulp.dest('./docs'))
