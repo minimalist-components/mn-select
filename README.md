@@ -1,6 +1,6 @@
-[![Bower version](https://badge.fury.io/bo/mn-select.svg)](https://badge.fury.io/bo/mn-select)
+[![npm version](https://badge.fury.io/js/mn-select.svg)](https://badge.fury.io/js/mn-select)
 [![Dependency Status](https://gemnasium.com/badges/github.com/minimalist-components/mn-select.svg)](https://gemnasium.com/github.com/minimalist-components/mn-select)
-[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)   
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)  
 
 # mn-select
 
@@ -8,15 +8,15 @@ Minimalist select component, agnostic to framworks.
 
 See the [demo](https://minimalist-components.github.io/mn-select/)
 
-<!-- [![preview demo](https://raw.githubusercontent.com/minimalist-components/mn-select/master/sources/example/mn-select.gif)](https://minimalist-components.github.io/mn-select/)  -->
+[![preview demo](https://raw.githubusercontent.com/minimalist-components/mn-select/master/preview.gif)](https://minimalist-components.github.io/mn-select/) 
 
 ### Install
 
 ```sh
-bower install --save mn-select
+npm install --save mn-select
 ```
 
-Or just download the main files, located in [dist/](https://github.com/minimalist-components/mn-select/tree/master/dist)
+And bundle dependencies and main files in [dist/](https://github.com/minimalist-components/mn-select/tree/master/dist) with your preferred tool.
 
 ### Usage
 
