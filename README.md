@@ -1,6 +1,6 @@
 [![npm version](https://badge.fury.io/js/mn-select.svg)](https://badge.fury.io/js/mn-select)
 [![Dependency Status](https://gemnasium.com/badges/github.com/minimalist-components/mn-select.svg)](https://gemnasium.com/github.com/minimalist-components/mn-select)
-[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)  
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
 # mn-select
 
