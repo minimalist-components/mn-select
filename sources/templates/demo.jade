@@ -24,9 +24,9 @@ body
   h2 mn-select
   include github-corner
 
-  .layout-fullscreen.layout-centered
-    .layout-container
-      mn-form.layout-column.layout-sm-row
+  .mn-layout-fullscreen.mn-layout-centered
+    .mn-layout-container
+      mn-form.mn-layout-column.mn-layout-sm-row
         //- mn-select.flex-sm#opt(placeholder='Select')
         mn-select.flex-sm#opt(placeholder='Select' value='{"id":3,"name":"Option 3"}')
           option(value='opt1') Option 1
@@ -63,7 +63,7 @@ body
 
         //- button send
   
-  .docs.layout-container
+  .docs.mn-layout-container
     mn-code.sh.
       npm install --save mn-select
 
