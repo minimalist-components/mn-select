@@ -30,7 +30,7 @@
   "dependencies": {
     "mn-backdrop": "^0.0.2",
     "mn-card": "^0.0.3",
-    "mn-input": "^0.0.5",
+    "mn-input": "^0.0.6",
     "open-color": "^1.4.2"
   },
   "devDependencies": {
