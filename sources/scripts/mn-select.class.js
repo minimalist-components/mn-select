@@ -96,9 +96,14 @@ class MnSelect extends window.MnInput {
       .from(options)
       .concat(mobile)
       .forEach(option => option.addEventListener('click', event => {
-        const value = event.target.getAttribute('value') || event.target.textContent
-        this.value = value
-        this.close()
+        const optionDisabled = event.target.getAttribute('disabled') === 'disabled'
+        if (!optionDisabled) {
+          const value = event.target.getAttribute('value') || event.target.textContent
+          this.value = value
+          this.close()
+        } else {
+          event.stopPropagation()
+        }
       }))
 
     Array

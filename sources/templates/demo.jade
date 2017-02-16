@@ -28,9 +28,9 @@ body
     .mn-layout-container
       mn-form.mn-layout-column.mn-layout-sm-row
         //- mn-select.flex-sm#opt(placeholder='Select')
-        mn-select.flex-sm#opt(placeholder='Select' value='{"id":3,"name":"Option 3"}')
-          option(value='opt1') Option 1
-          option(value='opt2') Option 2
+        mn-select.flex-sm#opt(placeholder='Select' value='opt1')
+          option(value='opt1' disabled) Option 1
+          option(value='opt2' disabled) Option 2
           option(value='{"id":3,"name":"Option 3"}') Option 3
 
         mn-select.flex-sm(placeholder='Gender')
