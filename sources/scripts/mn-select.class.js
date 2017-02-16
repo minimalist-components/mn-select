@@ -220,6 +220,10 @@ class MnSelect extends window.MnInput {
     const input = this.querySelector('input')
 
     if (option) {
+      const optionDisabled = option.getAttribute('disabled')
+      optionDisabled
+        ? this.classList.add('option-disabled')
+        : this.classList.remove('option-disabled')
       const viewValue = this.querySelector('div:not(.mn-select-option)')
       viewValue
         ? viewValue.textContent = option.textContent

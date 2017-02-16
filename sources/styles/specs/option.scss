@@ -1,5 +1,14 @@
 mn-select {
   > option {display: none}
+
+  &.option-disabled > div {
+    text-decoration: line-through;
+
+    &:after {
+      // content: ' (disabled)';
+      color: $oc-gray-6;
+    }
+  }
 }
 
 .mn-select-option {
@@ -23,11 +32,11 @@ mn-select {
 
   &[disabled] {
     pointer-events: none;
-    color: $oc-gray-5;
+    color: $oc-gray-6;
     text-decoration: line-through;
 
     &:after {
-      content: ' (deleted option)';
+      // content: ' (disabled)';
       text-decoration: none;
     }
   }
