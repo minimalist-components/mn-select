@@ -10,6 +10,7 @@ class MnSelect extends window.MnInput {
     this.setCloseEvents()
     this.setFormGetter()
     this.setValidation()
+    this.setFilter()
     return self
   }
 
@@ -271,14 +272,6 @@ class MnSelect extends window.MnInput {
       document.body.classList.remove('mn-select-visible')
       window.MnBackdrop.hide()
     }
-  }
-
-  focus() {
-    // this.querySelector('input').focus()
-  }
-
-  blur() {
-    // this.querySelector('input').blur()
   }
 
   focusOption(event) {
