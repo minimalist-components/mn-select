@@ -1,6 +1,7 @@
 class MnSelect extends window.MnInput {
   constructor(self) {
     self = super(self)
+    this.filterString = ''
     this.tabIndex()
     this.setMenu()
     this.setMobile()
@@ -167,12 +168,31 @@ class MnSelect extends window.MnInput {
         this.close()
       }
     })
-    document.addEventListener('keyup', event => {
-      const esc = event.keyCode === 27
-      let isOpened = document.body.classList.contains('mn-select-visible')
 
-      if (esc && isOpened) {
-        this.close()
+    document.addEventListener('keydown', event => {
+      const hasFilter = this.filterString
+      const esc = event.key === 'Escape'
+      const isOpened = this.classList.contains('visible')
+      const isCharacter = event.key.length === 1
+
+      if (isOpened) {
+        if (isCharacter) {
+          this.filterString += event.key
+          this.filter = this.filterString
+        }
+
+        if (event.key === 'Backspace') {
+          this.filterString = this.filterString.slice(0, -1)
+          this.filter = this.filterString
+        }
+
+        if (esc) {
+          if (hasFilter) {
+            this.filter = undefined
+          } else {
+            this.close()
+          }
+        }
       }
     })
     document.addEventListener('click', event => {
@@ -255,6 +275,32 @@ class MnSelect extends window.MnInput {
     return attrValue || undefined
   }
 
+  set filter(value) {
+    if (value) {
+      this.filterString = value
+      const options = Array.from(this.menu.querySelectorAll('.mn-select-option'))
+      options.forEach(option => {
+        const matchOption = filterByRegex(value, option.textContent)
+        matchOption
+          ? option.classList.remove('hidden')
+          : option.classList.add('hidden')
+      })
+    } else {
+      this.filterString = ''
+      const hiddenOptions = Array.from(this.querySelectorAll('.mn-select-option.hidden'))
+      hiddenOptions.forEach(option => option.classList.remove('hidden'))
+    }
+
+    function filterByRegex(search, value) {
+      const reg = new RegExp(search.split('').join('.*'), 'i')
+      return reg.test(value)
+    }
+  }
+
+  get filter() {
+    return this.filterString || undefined
+  }
+
   open() {
     this.close()
     this.classList.add('visible')
@@ -268,7 +314,7 @@ class MnSelect extends window.MnInput {
 
     if (select) {
       select.classList.remove('visible')
-      select.removeFilter()
+      select.filter = undefined
       select.mobile.classList.remove('visible')
       document.body.classList.remove('mn-select-visible')
       window.MnBackdrop.hide()
@@ -287,27 +333,27 @@ class MnSelect extends window.MnInput {
     }
   }
 
-  filter(value) {
-    if (value) {
-      const options = Array.from(this.menu.querySelectorAll('.mn-select-option'))
-      options.forEach(option => {
-        const matchOption = filterByRegex(value, option.textContent)
-        matchOption
-          ? option.classList.remove('hidden')
-          : option.classList.add('hidden')
-      })
-    }
+  // filter(value) {
+  //   if (value) {
+  //     const options = Array.from(this.menu.querySelectorAll('.mn-select-option'))
+  //     options.forEach(option => {
+  //       const matchOption = filterByRegex(value, option.textContent)
+  //       matchOption
+  //         ? option.classList.remove('hidden')
+  //         : option.classList.add('hidden')
+  //     })
+  //   }
 
-    function filterByRegex(search, value) {
-      const reg = new RegExp(search.split('').join('.*'), 'i')
-      return reg.test(value)
-    }
-  }
+  //   function filterByRegex(search, value) {
+  //     const reg = new RegExp(search.split('').join('.*'), 'i')
+  //     return reg.test(value)
+  //   }
+  // }
 
-  removeFilter() {
-    const hiddenOptions = Array.from(this.querySelectorAll('.mn-select-option.hidden'))
-    hiddenOptions.forEach(option => option.classList.remove('hidden'))
-  }
+  // removeFilter() {
+  //   const hiddenOptions = Array.from(this.querySelectorAll('.mn-select-option.hidden'))
+  //   hiddenOptions.forEach(option => option.classList.remove('hidden'))
+  // }
 }
 
 window.customElements.define('mn-select', MnSelect)
