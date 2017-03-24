@@ -10,7 +10,6 @@ class MnSelect extends window.MnInput {
     this.setCloseEvents()
     this.setFormGetter()
     this.setValidation()
-    this.setFilter()
     return self
   }
 
@@ -45,6 +44,7 @@ class MnSelect extends window.MnInput {
       })
 
     this.insertBefore(menu, this.firstChild)
+    this.menu = menu
   }
 
   setMobile() {
@@ -268,6 +268,7 @@ class MnSelect extends window.MnInput {
 
     if (select) {
       select.classList.remove('visible')
+      select.removeFilter()
       select.mobile.classList.remove('visible')
       document.body.classList.remove('mn-select-visible')
       window.MnBackdrop.hide()
@@ -284,6 +285,28 @@ class MnSelect extends window.MnInput {
         || this.querySelector('.mn-select-option:first-child')
       option.focus()
     }
+  }
+
+  filter(value) {
+    if (value) {
+      const options = Array.from(this.menu.querySelectorAll('.mn-select-option'))
+      options.forEach(option => {
+        const matchOption = filterByRegex(value, option.textContent)
+        matchOption
+          ? option.classList.remove('hidden')
+          : option.classList.add('hidden')
+      })
+    }
+
+    function filterByRegex(search, value) {
+      const reg = new RegExp(search.split('').join('.*'), 'i')
+      return reg.test(value)
+    }
+  }
+
+  removeFilter() {
+    const hiddenOptions = Array.from(this.querySelectorAll('.mn-select-option.hidden'))
+    hiddenOptions.forEach(option => option.classList.remove('hidden'))
   }
 }
 

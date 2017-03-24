@@ -21,6 +21,9 @@ mn-select {
     }
   }
 
+  .mn-select-option.hidden {
+    display: none;
+  }
 
   &.visible {
     menu {
