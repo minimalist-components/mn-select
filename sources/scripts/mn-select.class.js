@@ -144,10 +144,6 @@ class MnSelect extends window.MnInput {
           nextFocusable.focus()
           event.stopPropagation()
           event.preventDefault()
-        } else {
-          // console.log(nextFocusable)
-          // nextFocusable.focus()
-          // console.log(nextFocusable)
         }
       }))
 
@@ -158,7 +154,7 @@ class MnSelect extends window.MnInput {
           const value = event.target.getAttribute('value') || event.target.textContent
           this.value = value
           this.close()
-          this.focus()
+          // this.focus()
           event.stopPropagation()
         }
       }))
@@ -357,6 +353,7 @@ class MnSelect extends window.MnInput {
 
   open() {
     this.close()
+    this.menu.scrollTop = 0
     this.classList.add('visible')
     this.mobile.classList.add('visible')
     document.body.classList.add('mn-select-visible')
@@ -386,28 +383,6 @@ class MnSelect extends window.MnInput {
       option.focus()
     }
   }
-
-  // filter(value) {
-  //   if (value) {
-  //     const options = Array.from(this.menu.querySelectorAll('.mn-select-option'))
-  //     options.forEach(option => {
-  //       const matchOption = filterByRegex(value, option.textContent)
-  //       matchOption
-  //         ? option.classList.remove('hidden')
-  //         : option.classList.add('hidden')
-  //     })
-  //   }
-
-  //   function filterByRegex(search, value) {
-  //     const reg = new RegExp(search.split('').join('.*'), 'i')
-  //     return reg.test(value)
-  //   }
-  // }
-
-  // removeFilter() {
-  //   const hiddenOptions = Array.from(this.querySelectorAll('.mn-select-option.hidden'))
-  //   hiddenOptions.forEach(option => option.classList.remove('hidden'))
-  // }
 }
 
 window.customElements.define('mn-select', MnSelect)
