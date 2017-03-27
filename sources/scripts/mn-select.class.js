@@ -191,6 +191,7 @@ class MnSelect extends window.MnInput {
         if (isCharacter) {
           this.filterString += event.key
           this.filter = this.filterString
+          this.focusOption(event)
         }
 
         if (event.key === 'Backspace') {
@@ -340,7 +341,7 @@ class MnSelect extends window.MnInput {
       option.focus()
     } else if (event.type === 'keydown') {
       const option = this.querySelector('.mn-select-option[selected]')
-        || this.querySelector('.mn-select-option:first-child')
+        || this.querySelector('.mn-select-option:not(.hidden)')
       option.focus()
     }
   }
