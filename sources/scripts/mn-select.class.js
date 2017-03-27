@@ -114,20 +114,32 @@ class MnSelect extends window.MnInput {
       .from(options)
       .forEach(option => option.addEventListener('keydown', event => {
         let nextFocusable
-        switch (event.key) {
-          case 'ArrowDown':
-            nextFocusable = event.target.nextElementSibling
-            break
-          case 'ArrowUp':
-            nextFocusable = event.target.previousElementSibling
-            break
-        }
 
-        if (nextFocusable) {
+        const items = Array
+          .from(event.target.parentNode.childNodes)
+          .filter(item => {
+            return !item.classList.contains('hidden')
+          })
+        const index = items.indexOf(event.target)
+
+        const nextIndex = event.key === 'ArrowDown' && index < items.length
+          ? index + 1
+          : event.key === 'ArrowUp' && index > 0
+            ? index - 1
+            : 0
+
+        nextFocusable = items[nextIndex]
+
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+
           event.target.classList.add('keydown')
           nextFocusable.focus()
           event.stopPropagation()
           event.preventDefault()
+        } else {
+          // console.log(nextFocusable)
+          // nextFocusable.focus()
+          // console.log(nextFocusable)
         }
       }))
 
