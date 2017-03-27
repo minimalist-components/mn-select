@@ -191,7 +191,6 @@ class MnSelect extends window.MnInput {
 
     document.addEventListener('keydown', event => {
       const hasFilter = this.filterString
-      const esc = event.key === 'Escape'
       const isOpened = this.classList.contains('visible')
       const isCharacter = event.key.length === 1
 
@@ -207,7 +206,11 @@ class MnSelect extends window.MnInput {
           this.filter = this.filterString
         }
 
-        if (esc) {
+        if (event.key === 'Tab') {
+          this.close()
+        }
+
+        if (event.key === 'Escape') {
           if (hasFilter) {
             this.filter = undefined
           } else {
