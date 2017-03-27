@@ -33,7 +33,15 @@ class MnSelect extends window.MnInput {
         // fallback option, some browsers dont support tag option
         const option = document.createElement('div')
         option.classList.add('mn-select-option')
-        option.textContent = child.textContent
+
+        // wrap in a span
+        const text = child
+          .textContent
+          .split('')
+          .map(char => `<span class="char">${char}</span>`)
+          .join('')
+
+        option.innerHTML = text
         option.setAttribute('tabindex', '-1')
 
         Array
@@ -289,19 +297,49 @@ class MnSelect extends window.MnInput {
   }
 
   set filter(value) {
+
     if (value) {
+      this.classList.add('filtered')
       this.filterString = value
       const options = Array.from(this.menu.querySelectorAll('.mn-select-option'))
+      // console.clear()
+      // console.log(value)
       options.forEach(option => {
         const matchOption = filterByRegex(value, option.textContent)
-        matchOption
-          ? option.classList.remove('hidden')
-          : option.classList.add('hidden')
+
+        if (matchOption) {
+          option.classList.remove('hidden')
+          const strReg = value
+              .split('')
+              .join('.*')
+              .replace(/(\w(?:\.\*)?)/g, '($1)')
+          const reg = new RegExp(strReg, 'i')
+          const matches = option.textContent.match(reg)
+          const chars = Array.from(option.querySelectorAll('span'))
+
+          chars
+            .forEach((char, index) => {
+              const matchIndex = index >= matches.index
+              const matchValue = value.toLowerCase().search(char.textContent.toLowerCase()) >= 0
+
+              if (matchIndex && matchValue) {
+                char.classList.add('filter-match')
+              } else {
+                char.classList.remove('filter-match')
+              }
+            })
+          value.split('')
+        } else {
+          option.classList.add('hidden')
+        }
       })
     } else {
+      this.classList.remove('filtered')
       this.filterString = ''
       const hiddenOptions = Array.from(this.querySelectorAll('.mn-select-option.hidden'))
+      const chars = Array.from(this.querySelectorAll('.mn-select-option span.filter-match'))
       hiddenOptions.forEach(option => option.classList.remove('hidden'))
+      chars.forEach(char => char.classList.remove('filter-match'))
     }
 
     function filterByRegex(search, value) {

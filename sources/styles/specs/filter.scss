@@ -1,0 +1,9 @@
+mn-select.filtered {
+  .char {
+    transition: opacity .2s ease;
+  }
+
+  .char:not(.filter-match) {
+    opacity: .25;
+  }
+}
