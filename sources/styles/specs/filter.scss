@@ -1,3 +1,7 @@
+mn-select .char {
+  pointer-events: none;
+}
+
 mn-select.filtered {
   .char {
     transition: opacity .2s ease;
