@@ -99,11 +99,10 @@ class MnSelect extends window.MnInput {
   }
 
   setOptionEvents() {
-    const options = this.querySelectorAll('.mn-select-option')
+    const options = Array.from(this.querySelectorAll('.mn-select-option'))
     const mobile = Array.from(this.mobile.querySelectorAll('.mn-select-option'))
 
-    Array
-      .from(options)
+    options
       .concat(mobile)
       .forEach(option => option.addEventListener('click', event => {
         const value = event.target.getAttribute('value') || event.target.textContent
@@ -111,15 +110,13 @@ class MnSelect extends window.MnInput {
         this.close()
       }))
 
-    Array
-      .from(options)
+    options
       .forEach(option => option.addEventListener('mousemove', event => {
         event.target.focus()
         event.target.classList.remove('keydown')
       }))
 
-    Array
-      .from(options)
+    options
       .forEach(option => option.addEventListener('keydown', event => {
         let nextFocusable
 
@@ -139,7 +136,6 @@ class MnSelect extends window.MnInput {
         nextFocusable = items[nextIndex]
 
         if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-
           event.target.classList.add('keydown')
           nextFocusable.focus()
           event.stopPropagation()
@@ -147,8 +143,7 @@ class MnSelect extends window.MnInput {
         }
       }))
 
-    Array
-      .from(options)
+    options
       .forEach(option => option.addEventListener('keydown', event => {
         if (event.key === 'Enter') {
           const value = event.target.getAttribute('value') || event.target.textContent
@@ -156,6 +151,17 @@ class MnSelect extends window.MnInput {
           this.close()
           // this.focus()
           event.stopPropagation()
+        }
+      }))
+
+    options
+      .forEach(option => option.addEventListener('keydown', event => {
+        const isCharacter = event.key.length === 1
+
+        if (isCharacter) {
+          this.filterString += event.key
+          this.filter = this.filterString
+          this.focusOption(event)
         }
       }))
   }
@@ -188,15 +194,8 @@ class MnSelect extends window.MnInput {
     document.addEventListener('keydown', event => {
       const hasFilter = this.filterString
       const isOpened = this.classList.contains('visible')
-      const isCharacter = event.key.length === 1
 
       if (isOpened) {
-        if (isCharacter) {
-          this.filterString += event.key
-          this.filter = this.filterString
-          this.focusOption(event)
-        }
-
         if (event.key === 'Backspace') {
           this.filterString = this.filterString.slice(0, -1)
           this.filter = this.filterString
@@ -287,13 +286,10 @@ class MnSelect extends window.MnInput {
   }
 
   set filter(value) {
-
     if (value) {
       this.classList.add('filtered')
       this.filterString = value
       const options = Array.from(this.menu.querySelectorAll('.mn-select-option'))
-      // console.clear()
-      // console.log(value)
       options.forEach(option => {
         const matchOption = filterByRegex(value, option.textContent)
 
