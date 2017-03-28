@@ -41,7 +41,14 @@ class MnSelect extends window.MnInput {
           .map(char => `<span class="char">${char}</span>`)
           .join('')
 
-        option.innerHTML = text
+        const isDataBinding = /{{.+}}/.test(child.textContent)
+
+        if (isDataBinding) {
+          option.textContent = child.textContent
+        } else {
+          option.innerHTML = text
+        }
+
         option.setAttribute('tabindex', '-1')
 
         Array
@@ -121,7 +128,7 @@ class MnSelect extends window.MnInput {
         let nextFocusable
 
         const items = Array
-          .from(event.target.parentNode.childNodes)
+          .from(event.target.parentNode.children)
           .filter(item => {
             return !item.classList.contains('hidden')
           })
@@ -282,7 +289,18 @@ class MnSelect extends window.MnInput {
   }
 
   get value() {
-    return evaluate(this.getAttribute('value')) || undefined
+    // return evaluate(this.getAttribute('value')) || undefined
+    let attrValue
+
+    try {
+      attrValue = this.getAttribute('value')
+        ? JSON.parse(this.getAttribute('value'))
+        : this.getAttribute('value')
+    } catch (e) {
+      attrValue = this.getAttribute('value')
+    }
+
+    return attrValue || undefined
   }
 
   set filter(value) {
@@ -372,24 +390,24 @@ class MnSelect extends window.MnInput {
   }
 }
 
-function evaluate(value) {
-  try {
-    const isVariable = !value.startsWith('[')
-      && !value.startsWith('{')
-      && !value.startsWith('\'')
-      && !value.startsWith('"')
-      && !value.startsWith('`')
-      && value !== 'true'
-      && value !== 'false'
-      && isNaN(value)
+// function evaluate(value) {
+//   try {
+//     const isVariable = !value.startsWith('[')
+//       && !value.startsWith('{')
+//       && !value.startsWith('\'')
+//       && !value.startsWith('"')
+//       && !value.startsWith('`')
+//       && value !== 'true'
+//       && value !== 'false'
+//       && isNaN(value)
 
-    return isVariable
-        ? eval(`'${value}'`) // convert to string
-        : eval(`(${value})`) // evaluate
-  } catch (e) {
-    return value
-  }
-}
+//     return isVariable
+//         ? eval(`'${value}'`) // convert to string
+//         : eval(`(${value})`) // evaluate
+//   } catch (e) {
+//     return value
+//   }
+// }
 
 window.customElements.define('mn-select', MnSelect)
 
