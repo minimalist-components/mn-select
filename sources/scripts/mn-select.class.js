@@ -283,16 +283,7 @@ class MnSelect extends window.MnInput {
   }
 
   get value() {
-    let attrValue
-    try {
-      attrValue = this.getAttribute('value')
-        ? JSON.parse(this.getAttribute('value'))
-        : this.getAttribute('value')
-    } catch (e) {
-      attrValue = this.getAttribute('value')
-    }
-
-    return attrValue || undefined
+    return evaluate(this.getAttribute('value')) || undefined
   }
 
   set filter(value) {
@@ -382,6 +373,25 @@ class MnSelect extends window.MnInput {
         || this.querySelector('.mn-select-option:not(.hidden)')
       option.focus()
     }
+  }
+}
+
+function evaluate(value) {
+  try {
+    const isVariable = !value.startsWith('[')
+      && !value.startsWith('{')
+      && !value.startsWith('\'')
+      && !value.startsWith('"')
+      && !value.startsWith('`')
+      && value !== 'true'
+      && value !== 'false'
+      && isNaN(value)
+
+    return isVariable
+        ? eval(`'${value}'`) // convert to string
+        : eval(`(${value})`) // evaluate
+  } catch (e) {
+    return value
   }
 }
 
