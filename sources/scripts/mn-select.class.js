@@ -215,6 +215,7 @@ class MnSelect extends window.MnInput {
         if (event.key === 'Escape') {
           if (hasFilter) {
             this.filter = undefined
+            this.focusOption()
           } else {
             this.close()
           }
@@ -378,17 +379,17 @@ class MnSelect extends window.MnInput {
   }
 
   focusOption(event = {}) {
+    let option
     if (event.type === 'click') {
       // focus on option behind mouse
-      const option = document.elementFromPoint(event.clientX, event.clientY)
-      option.focus()
+      option = document.elementFromPoint(event.clientX, event.clientY)
     // } else if (event.type === 'keydown') {
     } else {
-      const option = this.querySelector('.mn-select-option[selected]')
+      option = this.querySelector('.mn-select-option[selected]')
         || this.querySelector('.mn-select-option:not(.hidden)')
-
-      option.focus()
     }
+
+    option && option.focus()
   }
 }
 
