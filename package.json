@@ -1,6 +1,6 @@
 {
   "name": "mn-select",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "a select component to desktop and mobile devices",
   "main": "dist/mn-select.js",
   "files": [

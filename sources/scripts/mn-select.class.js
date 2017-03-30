@@ -221,10 +221,9 @@ class MnSelect extends window.MnInput {
         }
       }
     })
-    document.addEventListener('click', event => {
+    document.addEventListener('mousedown', event => {
       const clickOutside = !event.target.closest('mn-select')
       const selectOption = event.target.classList.contains('mn-select-option')
-
       if (clickOutside || selectOption) {
         this.close()
       }
