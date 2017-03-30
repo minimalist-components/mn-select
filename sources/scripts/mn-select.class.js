@@ -144,7 +144,7 @@ class MnSelect extends window.MnInput {
 
         if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
           event.target.classList.add('keydown')
-          nextFocusable.focus()
+          nextFocusable && nextFocusable.focus()
           event.stopPropagation()
           event.preventDefault()
         }
@@ -386,7 +386,7 @@ class MnSelect extends window.MnInput {
     } else {
       const option = this.querySelector('.mn-select-option[selected]')
         || this.querySelector('.mn-select-option:not(.hidden)')
-      console.log(option)
+
       option.focus()
     }
   }
