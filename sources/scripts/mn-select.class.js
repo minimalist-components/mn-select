@@ -362,6 +362,7 @@ class MnSelect extends window.MnInput {
     this.mobile.classList.add('visible')
     document.body.classList.add('mn-select-visible')
     window.MnBackdrop.show()
+    this.focusOption()
   }
 
   close() {
@@ -376,14 +377,16 @@ class MnSelect extends window.MnInput {
     }
   }
 
-  focusOption(event) {
+  focusOption(event = {}) {
     if (event.type === 'click') {
       // focus on option behind mouse
       const option = document.elementFromPoint(event.clientX, event.clientY)
       option.focus()
-    } else if (event.type === 'keydown') {
+    // } else if (event.type === 'keydown') {
+    } else {
       const option = this.querySelector('.mn-select-option[selected]')
         || this.querySelector('.mn-select-option:not(.hidden)')
+      console.log(option)
       option.focus()
     }
   }
