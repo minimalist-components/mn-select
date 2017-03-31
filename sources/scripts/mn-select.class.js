@@ -117,16 +117,16 @@ class MnSelect extends window.MnInput {
 
     document.addEventListener('keydown', arrowNavigate)
     document.addEventListener('keydown', enterToSelect)
-    document.addEventListener('keydown', charactereFilter)
+    document.addEventListener('keydown', characterFilter)
 
     function clickToSelect(event) {
       const value = event.target.getAttribute('value') || event.target.textContent
-      this.value = value
-      this.close()
+      _this.value = value
+      _this.close()
     }
 
     function focusOption(event) {
-      this.focusIn(event.target)
+      _this.focusIn(event.target)
     }
 
     function arrowNavigate(event) {
@@ -173,33 +173,38 @@ class MnSelect extends window.MnInput {
       }
     }
 
-    function charactereFilter(event) {
-      const isCharacter = event.key.length === 1
+    function characterFilter(event) {
+      const isCharacter = event.key.length === 1 && event.key !== ' '
       const elementIsVisible = _this.classList.contains('visible')
 
       if (isCharacter && elementIsVisible) {
         _this.filterString += event.key
         _this.filter = _this.filterString
-        _this.focusOption(event)
       }
     }
   }
 
   setOpenEvents() {
-    this.addEventListener('click', event => {
-      this.open()
-      this.focusOption(event)
-    })
+    const _this = this
+    this.addEventListener('click', clickToOpen)
+    this.addEventListener('keydown', enterOrSpaceToOpen)
 
-    this.addEventListener('keydown', event => {
-      switch (event.key) {
-        case 'Enter':
-        case ' ':
-          this.open()
-          this.focusOption(event)
-          event.preventDefault()
+    function clickToOpen() {
+      const elementIsVisible = _this.classList.contains('visible')
+      !elementIsVisible && _this.open()
+    }
+
+    function enterOrSpaceToOpen(event) {
+      const isEnterOrSpaceKey = event.key === 'Enter'
+        || event.key === ' '
+      const elementIsVisible = _this.classList.contains('visible')
+
+      if (isEnterOrSpaceKey && !elementIsVisible) {
+        _this.open()
+        event.preventDefault()
+        event.stopPropagation()
       }
-    })
+    }
   }
 
   setCloseEvents() {
@@ -228,17 +233,18 @@ class MnSelect extends window.MnInput {
         if (event.key === 'Escape') {
           if (hasFilter) {
             this.filter = undefined
-            this.focusOption()
           } else {
             this.close()
           }
         }
       }
     })
-    document.addEventListener('mousedown', event => {
+
+    document.addEventListener('click', event => {
+      const elementIsVisible = this.classList.contains('visible')
       const clickOutside = !event.target.closest('mn-select')
       const selectOption = event.target.classList.contains('mn-select-option')
-      if (clickOutside || selectOption) {
+      if (elementIsVisible && clickOutside || selectOption) {
         this.close()
       }
     })
@@ -359,6 +365,8 @@ class MnSelect extends window.MnInput {
       chars.forEach(char => char.classList.remove('filter-match'))
     }
 
+    this.focusIn(this.querySelector('.mn-select-option:not(.hidden)'))
+
     function filterByRegex(search, value) {
       const reg = new RegExp(search.split('').join('.*'), 'i')
       return reg.test(value)
@@ -376,7 +384,7 @@ class MnSelect extends window.MnInput {
     this.mobile.classList.add('visible')
     document.body.classList.add('mn-select-visible')
     window.MnBackdrop.show()
-    this.focusOption()
+    this.focusIn(this.querySelector('.mn-select-option'))
   }
 
   close() {
@@ -391,25 +399,8 @@ class MnSelect extends window.MnInput {
     }
   }
 
-  focusOption() {
-  // focusOption(event = {}) {
-    // let option
-    // if (event.type === 'click') {
-    //   // focus on option behind mouse
-    //   option = document.elementFromPoint(event.clientX, event.clientY)
-    // // } else if (event.type === 'keydown') {
-    // } else {
-    //   option = this.querySelector('.mn-select-option[selected]')
-    //     || this.querySelector('.mn-select-option:not(.hidden)')
-    // }
-
-    // return false
-    // this.focusIn(option)
-    // // option && option.focus()
-  }
-
   focusIn(option) {
-    if (!option.classList.contains('focus')) {
+    if (option && !option.classList.contains('focus')) {
       const lastFocus = this.querySelector('.mn-select-option.focus')
       lastFocus && lastFocus.classList.remove('focus')
       option && option.classList.add('focus')
