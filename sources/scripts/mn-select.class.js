@@ -126,7 +126,11 @@ class MnSelect extends window.MnInput {
     }
 
     function focusOption(event) {
-      _this.focusIn(event.target)
+      if (_this.classList.contains('arrow-key')) {
+        _this.classList.remove('arrow-key')
+      } else {
+        _this.focusIn(event.target)
+      }
     }
 
     function arrowNavigate(event) {
@@ -151,10 +155,7 @@ class MnSelect extends window.MnInput {
         const nextFocusable = items[nextIndex]
 
         if (isArrowKey && nextFocusable) {
-          // event.target.classList.add('keydown')
-
           _this.focusIn(nextFocusable)
-          // nextFocusable && nextFocusable.focus()
           event.stopPropagation()
           event.preventDefault()
         }
@@ -403,8 +404,20 @@ class MnSelect extends window.MnInput {
     if (option && !option.classList.contains('focus')) {
       const lastFocus = this.querySelector('.mn-select-option.focus')
       lastFocus && lastFocus.classList.remove('focus')
-      option && option.classList.add('focus')
-      // console.log('focus => ', option)
+      option.classList.add('focus')
+
+      const optionTop = option.offsetTop
+      const optionBottom = optionTop + option.clientHeight
+
+      const scrollToTop = optionTop < this.menu.scrollTop
+      const scrollToBottom = optionBottom > this.menu.scrollTop + this.menu.clientHeight
+
+      this.classList.add('arrow-key')
+      if (scrollToTop) {
+        this.menu.scrollTop = optionTop
+      } else if (scrollToBottom) {
+        this.menu.scrollTop = optionBottom - this.menu.clientHeight
+      }
     }
   }
 }
