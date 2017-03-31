@@ -12,7 +12,8 @@ mn-select {
     white-space: nowrap;
     outline: 0 !important;
 
-    &:hover:not(.keydown), &:focus {
+    // &:hover:not(.keydown), &.focus {
+    &.focus {
       background-color: $oc-gray-4 !important;
     }
 

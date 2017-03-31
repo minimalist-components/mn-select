@@ -49,8 +49,6 @@ class MnSelect extends window.MnInput {
           option.innerHTML = text
         }
 
-        option.setAttribute('tabindex', '-1')
-
         Array
           .from(child.attributes)
           .forEach(attr => option.setAttribute(attr.name, attr.value))
@@ -108,31 +106,41 @@ class MnSelect extends window.MnInput {
   setOptionEvents() {
     const options = Array.from(this.querySelectorAll('.mn-select-option'))
     const mobile = Array.from(this.mobile.querySelectorAll('.mn-select-option'))
+    const _this = this
 
     options
       .concat(mobile)
-      .forEach(option => option.addEventListener('click', event => {
-        const value = event.target.getAttribute('value') || event.target.textContent
-        this.value = value
-        this.close()
-      }))
+      .forEach(option => option.addEventListener('click', clickToSelect))
 
     options
-      .forEach(option => option.addEventListener('mousemove', event => {
-        event.target.focus()
-        event.target.classList.remove('keydown')
-      }))
+      .forEach(option => option.addEventListener('mousemove', focusOption))
 
-    options
-      .forEach(option => option.addEventListener('keydown', event => {
-        let nextFocusable
+    document.addEventListener('keydown', arrowNavigate)
+    document.addEventListener('keydown', enterToSelect)
+    document.addEventListener('keydown', charactereFilter)
 
+    function clickToSelect(event) {
+      const value = event.target.getAttribute('value') || event.target.textContent
+      this.value = value
+      this.close()
+    }
+
+    function focusOption(event) {
+      this.focusIn(event.target)
+    }
+
+    function arrowNavigate(event) {
+      const isArrowKey = event.key === 'ArrowDown' || event.key === 'ArrowUp'
+      const elementIsVisible = _this.classList.contains('visible')
+
+      if (isArrowKey && elementIsVisible) {
         const items = Array
-          .from(event.target.parentNode.children)
+          .from(_this.menu.children)
           .filter(item => {
             return !item.classList.contains('hidden')
           })
-        const index = items.indexOf(event.target)
+
+        const index = items.indexOf(_this.querySelector('.mn-select-option.focus'))
 
         const nextIndex = event.key === 'ArrowDown' && index < items.length
           ? index + 1
@@ -140,37 +148,41 @@ class MnSelect extends window.MnInput {
             ? index - 1
             : 0
 
-        nextFocusable = items[nextIndex]
+        const nextFocusable = items[nextIndex]
 
-        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
-          event.target.classList.add('keydown')
-          nextFocusable && nextFocusable.focus()
+        if (isArrowKey && nextFocusable) {
+          // event.target.classList.add('keydown')
+
+          _this.focusIn(nextFocusable)
+          // nextFocusable && nextFocusable.focus()
           event.stopPropagation()
           event.preventDefault()
         }
-      }))
+      }
+    }
 
-    options
-      .forEach(option => option.addEventListener('keydown', event => {
-        if (event.key === 'Enter') {
-          const value = event.target.getAttribute('value') || event.target.textContent
-          this.value = value
-          this.close()
-          // this.focus()
-          event.stopPropagation()
-        }
-      }))
+    function enterToSelect(event) {
+      const isEnterKey = event.key === 'Enter'
+      const elementIsVisible = _this.classList.contains('visible')
+      const option = _this.menu.querySelector('.focus')
 
-    options
-      .forEach(option => option.addEventListener('keydown', event => {
-        const isCharacter = event.key.length === 1
+      if (isEnterKey && elementIsVisible && option) {
+        const value = option.getAttribute('value') || option.textContent
+        _this.value = value
+        _this.close()
+      }
+    }
 
-        if (isCharacter) {
-          this.filterString += event.key
-          this.filter = this.filterString
-          this.focusOption(event)
-        }
-      }))
+    function charactereFilter(event) {
+      const isCharacter = event.key.length === 1
+      const elementIsVisible = _this.classList.contains('visible')
+
+      if (isCharacter && elementIsVisible) {
+        _this.filterString += event.key
+        _this.filter = _this.filterString
+        _this.focusOption(event)
+      }
+    }
   }
 
   setOpenEvents() {
@@ -178,6 +190,7 @@ class MnSelect extends window.MnInput {
       this.open()
       this.focusOption(event)
     })
+
     this.addEventListener('keydown', event => {
       switch (event.key) {
         case 'Enter':
@@ -378,39 +391,32 @@ class MnSelect extends window.MnInput {
     }
   }
 
-  focusOption(event = {}) {
-    let option
-    if (event.type === 'click') {
-      // focus on option behind mouse
-      option = document.elementFromPoint(event.clientX, event.clientY)
-    // } else if (event.type === 'keydown') {
-    } else {
-      option = this.querySelector('.mn-select-option[selected]')
-        || this.querySelector('.mn-select-option:not(.hidden)')
-    }
+  focusOption() {
+  // focusOption(event = {}) {
+    // let option
+    // if (event.type === 'click') {
+    //   // focus on option behind mouse
+    //   option = document.elementFromPoint(event.clientX, event.clientY)
+    // // } else if (event.type === 'keydown') {
+    // } else {
+    //   option = this.querySelector('.mn-select-option[selected]')
+    //     || this.querySelector('.mn-select-option:not(.hidden)')
+    // }
 
-    option && option.focus()
+    // return false
+    // this.focusIn(option)
+    // // option && option.focus()
+  }
+
+  focusIn(option) {
+    if (!option.classList.contains('focus')) {
+      const lastFocus = this.querySelector('.mn-select-option.focus')
+      lastFocus && lastFocus.classList.remove('focus')
+      option && option.classList.add('focus')
+      // console.log('focus => ', option)
+    }
   }
 }
-
-// function evaluate(value) {
-//   try {
-//     const isVariable = !value.startsWith('[')
-//       && !value.startsWith('{')
-//       && !value.startsWith('\'')
-//       && !value.startsWith('"')
-//       && !value.startsWith('`')
-//       && value !== 'true'
-//       && value !== 'false'
-//       && isNaN(value)
-
-//     return isVariable
-//         ? eval(`'${value}'`) // convert to string
-//         : eval(`(${value})`) // evaluate
-//   } catch (e) {
-//     return value
-//   }
-// }
 
 window.customElements.define('mn-select', MnSelect)
 
