@@ -1,6 +1,7 @@
 class MnSelect extends window.MnInput {
   constructor(self) {
     self = super(self)
+    this.container = undefined
     this.filterString = ''
     this.tabIndex()
     this.setMenu()
@@ -241,9 +242,11 @@ class MnSelect extends window.MnInput {
       }
     })
 
-    document.addEventListener('click', event => {
+    document.addEventListener('mousedown', event => {
       const elementIsVisible = this.classList.contains('visible')
-      const clickOutside = !event.target.closest('mn-select')
+      const clickOutside = this.container
+        ? !event.target.closest(this.container)
+        : !event.target.closest('mn-select')
       const selectOption = event.target.classList.contains('mn-select-option')
       if (elementIsVisible && clickOutside || selectOption) {
         this.close()
