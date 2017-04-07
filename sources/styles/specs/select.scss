@@ -1,4 +1,4 @@
-mn-select {
+.mn-select {
   > div {
     white-space: nowrap;
     overflow: hidden;
@@ -9,6 +9,10 @@ mn-select {
     &:after {
       border-top: .35em solid $oc-gray-4;
     }
+  }
+
+  &[readonly] {
+    pointer-events: none;
   }
 
   &:after {

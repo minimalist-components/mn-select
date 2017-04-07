@@ -1,6 +1,7 @@
 class MnSelect extends window.MnInput {
   constructor(self) {
     self = super(self)
+    this.classList.add('mn-select')
     this.container = undefined
     this.filterString = ''
     this.tabIndex()
