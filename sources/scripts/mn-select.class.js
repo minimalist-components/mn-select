@@ -243,7 +243,7 @@ class MnSelect extends window.MnInput {
       }
     })
 
-    document.addEventListener('mousedown', event => {
+    document.addEventListener('click', event => {
       const elementIsVisible = this.classList.contains('visible')
       const clickOutside = this.container
         ? !event.target.closest(this.container)
