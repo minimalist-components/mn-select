@@ -5,6 +5,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     top: 0; left: 0;
+    width: 100%;
 
     @media (max-width: 767px) {
       display: none;

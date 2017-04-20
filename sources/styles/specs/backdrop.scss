@@ -1,3 +1,5 @@
 @media (min-width: 768px) {
-  .mn-select-visible:before {display: none}
+  .mn-select-visible:not(.mn-dialog-visible):before {
+    display: none;
+  }
 }
