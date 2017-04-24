@@ -278,38 +278,46 @@ class MnSelect extends window.MnInput {
   }
 
   set value(value) {
-    value = typeof value === 'object'
-      ? JSON.stringify(value)
-      : value
+    const viewValue = this.querySelector('div:not(.mn-select-option)')
 
-    const option = this.querySelector(`.mn-select-option[value='${value}']`)
-    const input = this.querySelector('input')
+    if (value) {
+      value = typeof value === 'object'
+        ? JSON.stringify(value)
+        : value
 
-    if (option) {
-      const viewValue = this.querySelector('div:not(.mn-select-option)')
-      viewValue
-        ? viewValue.textContent = option.textContent
-        : null
-      if (input) {
-        input.value = value
+      const option = this.querySelector(`.mn-select-option[value='${value}']`)
+      const input = this.querySelector('input')
+
+      if (option) {
+        viewValue
+          ? viewValue.textContent = option.textContent
+          : null
+        if (input) {
+          input.value = value
+        }
+        this.classList.add('has-value')
+        const lastSelected = option.parentNode.querySelector('.mn-select-option[selected]')
+
+        if (lastSelected) {
+          lastSelected.removeAttribute('selected')
+        }
+        option.setAttribute('selected', 'selected')
+      } else {
+        console.error(`MN-SELECT OPTION_UNDEFINED
+          You're trying set a value (${value}) to mn-select,
+          but there is no option with this value to be displayed`)
       }
-      this.classList.add('has-value')
-      const lastSelected = option.parentNode.querySelector('.mn-select-option[selected]')
-
-      if (lastSelected) {
-        lastSelected.removeAttribute('selected')
-      }
-      option.setAttribute('selected', 'selected')
     } else {
-      console.error(`MN-SELECT OPTION_UNDEFINED
-        You're trying set a value (${value}) to mn-select,
-        but there is no option with this value to be displayed`)
+      this.classList.remove('has-value')
+      viewValue.textContent = ''
     }
 
     this.validate()
     const changeEvent = new CustomEvent('change', {value})
     this.dispatchEvent(changeEvent)
-    this.setAttribute('value', value)
+    value
+      ? this.setAttribute('value', value)
+      : this.removeAttribute('value')
   }
 
   get value() {
